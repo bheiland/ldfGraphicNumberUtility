@@ -89,7 +89,7 @@ Partial Class Form1
         'ButtonScan
         '
         Me.ButtonScan.Enabled = False
-        Me.ButtonScan.Location = New System.Drawing.Point(954, 9)
+        Me.ButtonScan.Location = New System.Drawing.Point(760, 12)
         Me.ButtonScan.Name = "ButtonScan"
         Me.ButtonScan.Size = New System.Drawing.Size(93, 23)
         Me.ButtonScan.TabIndex = 3
