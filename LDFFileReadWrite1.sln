@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2015
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "LDFGraphicNumberUtility", "LDFFileReadWrite1\LDFGraphicNumberUtility.vbproj", "{845D637B-2039-46AA-A516-07AD0B583BC3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x86 = Debug|x86
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{845D637B-2039-46AA-A516-07AD0B583BC3}.Debug|x86.ActiveCfg = Release|x86
+		{845D637B-2039-46AA-A516-07AD0B583BC3}.Debug|x86.Build.0 = Release|x86
+		{845D637B-2039-46AA-A516-07AD0B583BC3}.Release|x86.ActiveCfg = Debug|x86
+		{845D637B-2039-46AA-A516-07AD0B583BC3}.Release|x86.Build.0 = Debug|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {605FEC66-51BB-471A-95B6-A93E3D468C8B}
+	EndGlobalSection
+EndGlobal
