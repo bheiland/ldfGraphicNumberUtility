@@ -1004,7 +1004,7 @@ Public Class Form1
 
 
 
-    Private Sub ButtonAutoAddGraphics_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ButtonAutoAddGraphics.Click
+    Private Sub ButtonAutoAddGraphics_Click(ByVal sender As System.Object, ByVal e As EventArgs) Handles ButtonAutoAddGraphics.Click
         ' Dim listboxitem As String
         Dim index As Integer
         Dim graphicsfolderpath As String
