@@ -51,9 +51,10 @@
         Dim x As Long
         Dim resp As Object
         Dim tmp As String
+        resp = vbNull
         For x = 1 To Len(p_str)
             tmp = Mid$(p_str, x, 1)
-            resp = resp & Hex(Asc(tmp))
+            resp = Hex(Asc(tmp))
         Next
         str_to_hex = resp
     End Function

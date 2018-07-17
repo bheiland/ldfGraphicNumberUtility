@@ -47,8 +47,9 @@ Public Class Form1
         ListViewDictionary.GridLines = True
         ListViewDictionary.FullRowSelect = True
         ListViewDictionary.Columns.Add("Key", 60)
-        ListViewDictionary.Columns.Add("Value", 60)
+        ListViewDictionary.Columns.Add("Char", 60)
         ListViewDictionary.Columns.Add("Hex", 60)
+        ListViewDictionary.Columns.Add("Value", 60)
         Dim tt As New ToolTip()
 
 
@@ -90,7 +91,7 @@ Public Class Form1
 
         '    ListViewDictionary.Items.Add(item)
         'Next
-
+        Me.WindowState = FormWindowState.Maximized
     End Sub
 
     Private Sub ButtonSelectFile_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ButtonSelectFile.Click
@@ -227,7 +228,13 @@ Public Class Form1
                                                 warned2 = True
                                             End If
                                         End If
-                                        LineData(NumericUpDownLineToReplace.Value) = lookupDict(Microsoft.VisualBasic.Left(LineData(NumericUpDownGraphicLineToScan.Value), 4))
+                                        If (Int(lookupDict(Microsoft.VisualBasic.Left(LineData(NumericUpDownGraphicLineToScan.Value), 4))) > 255) Then
+                                            LineData(NumericUpDownLineToReplace.Value) = "^PF" + TextBox2.Text + "^X" + Chr(Int(lookupDict(Microsoft.VisualBasic.Left(LineData(NumericUpDownGraphicLineToScan.Value), 4)) Mod 255))
+                                        Else
+
+                                            LineData(NumericUpDownLineToReplace.Value) = Chr(Int(lookupDict(Microsoft.VisualBasic.Left(LineData(NumericUpDownGraphicLineToScan.Value), 4)) Mod 255))
+                                        End If
+                                        'LineData(NumericUpDownLineToReplace.Value) = lookupDict(Microsoft.VisualBasic.Left(LineData(NumericUpDownGraphicLineToScan.Value), 4))
                                         'LineData(32) = LineData(32) + Chr(GROUPSEP)
                                     Else
                                         If warned = False Then
@@ -268,7 +275,7 @@ Public Class Form1
                                             Exit For
                                         End If
                                     Next
-                                    If BitmapNameFound = False Then
+                                    If (BitmapNameFound = False) And (smatch = True) Then
                                         ReDim Preserve UniqueBitmapCodes(BitmapElements)
                                         ReDim Preserve BitmapRecordNumberFirstOccurance(BitmapElements)
                                         ReDim Preserve DataLineStringLongest(BitmapElements)
@@ -334,7 +341,7 @@ Public Class Form1
                                         TextBox1.Text = TextBoxLabel
                                         UpdateListviewItems()
                                     End If
-                                    If FirstOccurance = True Then
+                                    If (FirstOccurance = True) Then
                                         OutputRecordLabel = ""
                                         LineData(0) = LineData(0).Replace("Q", " ")
                                         For index = 0 To LineData.Length - 2
@@ -364,12 +371,19 @@ Public Class Form1
                         If smatch = True Then
                             If lookupDict.ContainsKey(Microsoft.VisualBasic.Left(LineData(NumericUpDownGraphicLineToScan.Value), 4)) = True Then
                                 If warned2 = False Then
+
                                     If (Not String.IsNullOrWhiteSpace(LineData(NumericUpDownLineToReplace.Value))) Then
                                         MessageBox.Show("CAUTION replacing non empty line of data '" + LineData(NumericUpDownLineToReplace.Value) + "' You will only be warned once!")
                                         warned2 = True
                                     End If
                                 End If
-                                LineData(NumericUpDownLineToReplace.Value) = lookupDict(Microsoft.VisualBasic.Left(LineData(NumericUpDownGraphicLineToScan.Value), 4))
+                                If (Int(lookupDict(Microsoft.VisualBasic.Left(LineData(NumericUpDownGraphicLineToScan.Value), 4))) > 255) Then
+                                    LineData(NumericUpDownLineToReplace.Value) = "^PF" + TextBox2.Text + "^X" + Chr(Int(lookupDict(Microsoft.VisualBasic.Left(LineData(NumericUpDownGraphicLineToScan.Value), 4)) Mod 255))
+                                Else
+
+                                    LineData(NumericUpDownLineToReplace.Value) = Chr(Int(lookupDict(Microsoft.VisualBasic.Left(LineData(NumericUpDownGraphicLineToScan.Value), 4)) Mod 255))
+                                End If
+                                'LineData(NumericUpDownLineToReplace.Value) = lookupDict(Microsoft.VisualBasic.Left(LineData(NumericUpDownGraphicLineToScan.Value), 4))
                                 'LineData(32) = LineData(32) + Chr(GROUPSEP)
                             Else
                                 If warned = False Then
@@ -380,6 +394,27 @@ Public Class Form1
 
                             End If
                         End If
+
+
+                        'If smatch = True Then
+                        '    If lookupDict.ContainsKey(Microsoft.VisualBasic.Left(LineData(NumericUpDownGraphicLineToScan.Value), 4)) = True Then
+                        '        If warned2 = False Then
+                        '            If (Not String.IsNullOrWhiteSpace(LineData(NumericUpDownLineToReplace.Value))) Then
+                        '                MessageBox.Show("CAUTION replacing non empty line of data '" + LineData(NumericUpDownLineToReplace.Value) + "' You will only be warned once!")
+                        '                warned2 = True
+                        '            End If
+                        '        End If
+                        '        LineData(NumericUpDownLineToReplace.Value) = lookupDict(Microsoft.VisualBasic.Left(LineData(NumericUpDownGraphicLineToScan.Value), 4))
+                        '        'LineData(32) = LineData(32) + Chr(GROUPSEP)
+                        '    Else
+                        '        If warned = False Then
+
+                        '            warned = True
+                        '            MessageBox.Show("No dictionary entry for " + Microsoft.VisualBasic.Left(LineData(17), 4) + " There will be only one warning")
+                        '        End If
+
+                        '    End If
+                        'End If
                         If ldfRecordNumber >= Val(TextBoxStartRecord.Text) And ldfRecordNumber <= Val(TextBoxEndRecord.Text) Then
                             CountRecord = True
                         Else
@@ -444,7 +479,7 @@ Public Class Form1
                                         Exit For
                                     End If
                                 Next
-                                If BitmapNameFound = False Then
+                                If (BitmapNameFound = False) And (smatch = True) Then
                                     ReDim Preserve UniqueBitmapCodes(BitmapElements)
                                     ReDim Preserve BitmapRecordNumberFirstOccurance(BitmapElements)
                                     ReDim Preserve DataLineStringLongest(BitmapElements)
@@ -581,6 +616,9 @@ Public Class Form1
         Return dpi
 
     End Function
+
+
+
 
     Private Sub Form1_Shown(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Shown
 
@@ -1004,7 +1042,7 @@ Public Class Form1
 
 
 
-    Private Sub ButtonAutoAddGraphics_Click(ByVal sender As System.Object, ByVal e As EventArgs) Handles ButtonAutoAddGraphics.Click
+    Private Sub ButtonAutoAddGraphics_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ButtonAutoAddGraphics.Click
         ' Dim listboxitem As String
         Dim index As Integer
         Dim graphicsfolderpath As String
@@ -1363,7 +1401,7 @@ Public Class Form1
         OpenFileDialog2.Filter = "txt files (*.txt|*.txt|All Files (*.*)|*.*"
         OpenFileDialog2.FilterIndex = 2
         OpenFileDialog2.RestoreDirectory = True
-        OpenFileDialog2.Title = "Please Selected an LDF File"
+        OpenFileDialog2.Title = "Please Selected a Dictionary File"
 
         OpenFileDialog2.ShowDialog()
     End Sub
@@ -1371,25 +1409,51 @@ Public Class Form1
         Dim allLines As String() = File.ReadAllLines(OpenFileDialog2.FileName, Encoding.Default)
         Dim arr(3) As String
         'lookupDict.Clear()
-        For i = 0 To allLines.Count - 1 Step 4
-            If lookupDict.ContainsKey(allLines(i).ToString) Then
+        For i = 0 To allLines.Count - 1
+            Dim singleLine As String() = (allLines(i).Split(vbTab))
+            If lookupDict.ContainsKey(singleLine(0).ToString) Then
                 MessageBox.Show("Duplicate Key in Dictionary file" + allLines(i).ToString)
             Else
-                lookupDict.Add(allLines(i).ToString, allLines(i + 3).ToString)
+                lookupDict.Add(singleLine(0).ToString, singleLine(2).ToString)
             End If
 
         Next
+        'For i = 0 To allLines.Count - 1 Step 4
+        '    If lookupDict.ContainsKey(allLines(i).ToString) Then
+        '        MessageBox.Show("Duplicate Key in Dictionary file" + allLines(i).ToString)
+        '    Else
+        '        lookupDict.Add(allLines(i).ToString, allLines(i + 3).ToString)
+        '    End If
+
+        'Next
         For Each ikey As String In lookupDict.Keys
 
             arr(0) = ikey
-            arr(1) = lookupDict(ikey)
-            arr(2) = str_to_hex(lookupDict(ikey))
+            arr(1) = Chr(Int(lookupDict(ikey)) Mod 255)
+            'arr(2) = str_to_hex(lookupDict(ikey))
+            arr(2) = str_to_hex(arr(1))
+            arr(3) = lookupDict(ikey)
 
             Dim item = New ListViewItem(arr)
             ' ListViewDictionary.Items.Clear()
             ListViewDictionary.Items.Add(item)
         Next
+        '''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
 
     End Sub
 
+    Private Sub TextBox2_KeyPress(sender As Object, e As System.Windows.Forms.KeyPressEventArgs) Handles TextBox2.KeyPress
+        If Not Char.IsNumber(e.KeyChar) AndAlso Not Char.IsControl(e.KeyChar) Then
+            e.Handled = True
+        End If
+    End Sub
+
+    Private Sub TextBox2_LostFocus(sender As Object, e As System.EventArgs) Handles TextBox2.LostFocus
+        TextBox2.Text = Microsoft.VisualBasic.Right("000" + TextBox2.Text, 3)
+    End Sub
+
+    Private Sub TextBox2_TextChanged(sender As System.Object, e As System.EventArgs) Handles TextBox2.TextChanged
+        'TextBox2.Text = Microsoft.VisualBasic.Right("000" + TextBox2.Text, 3)
+
+    End Sub
 End Class
