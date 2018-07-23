@@ -24,6 +24,7 @@ Public Class Form1
     Dim clickedindex As Integer = 0
     Dim lookupDict As New Dictionary(Of String, String)()
     Dim runOnce As Boolean = True
+    Dim firstOccurancePath As String = "c:\FirstOccuranceFile"
     ' Dim firstrun As Boolean = False
 
     Private m_SortingColumn As ColumnHeader
@@ -126,7 +127,6 @@ Public Class Form1
         Dim LDFReader As StreamReader
         ' Dim LDFWriter As StreamWriter
         Dim LDFWriterPath As String
-
         ' Dim DataWriter As StreamWriter
         Dim dataWriterPath As String = "C:\jobs\test.txt"
         Dim FoundRecordStart As Integer
@@ -196,8 +196,9 @@ Public Class Form1
             If Not Directory.Exists(LDFWriterPath) Then
                 Directory.CreateDirectory(LDFWriterPath)
             End If
-            LDFWriterPath = LDFWriterPath + fileInfo.Name
 
+            LDFWriterPath = LDFWriterPath + fileInfo.Name
+            firstOccurancePath = fileInfo.Directory.ToString + "\ModifiedFiles\" + "FirstOccuranceFile"
             wStream = New FileStream(LDFWriterPath, FileMode.OpenOrCreate, FileAccess.Write)
             Using LDFWriter As StreamWriter = New StreamWriter(wStream, Encoding.Default)
                 ' MessageBox.Show(LDFWriterPath)
@@ -520,7 +521,6 @@ Public Class Form1
             LDFReader.Dispose()
             'LDFWriter.Close()
             'LDFWriter.Dispose()
-
         Next
         TextBoxLabel = ""
         For index = 0 To LineData.Length - 1
@@ -531,8 +531,14 @@ Public Class Form1
         ' LDFWriterPath = filepath1.Directory.ToString + "\MFirstOccurances"
         'wStream = New FileStream(LDFWriterPath, FileMode.OpenOrCreate, FileAccess.Write)
         ' Using LDFWriter As StreamWriter = New StreamWriter(wStream, Encoding.Default)
-        TextBox3.Text = FirstOccuranceLDFString
-        ' End Using
+        TextBox3.Text = firstoccuranceLDFstring
+
+        wStream = New FileStream(firstOccurancePath, FileMode.OpenOrCreate, FileAccess.Write)
+        Using LDFWriter As StreamWriter = New StreamWriter(wStream, Encoding.Default)
+            LDFWriter.Write(firstoccuranceLDFstring)
+            LDFWriter.Flush()
+            LDFWriter.Close()
+        End Using
         TextBox1.Text = TextBoxLabel
         'If (Len(StringToOutput) > 0) Then
         '    'dataWriterPath = "test.txt"
@@ -1459,6 +1465,14 @@ Public Class Form1
 
     Private Sub TextBox2_TextChanged(sender As System.Object, e As System.EventArgs) Handles TextBox2.TextChanged
         'TextBox2.Text = Microsoft.VisualBasic.Right("000" + TextBox2.Text, 3)
+
+    End Sub
+
+    Private Sub TextBox3_TextChanged(sender As Object, e As EventArgs) Handles TextBox3.TextChanged
+
+    End Sub
+
+    Private Sub TextBox3_DoubleClick(sender As Object, e As EventArgs) Handles TextBox3.DoubleClick
 
     End Sub
 End Class
