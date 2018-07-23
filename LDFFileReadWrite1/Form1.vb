@@ -198,7 +198,7 @@ Public Class Form1
             End If
 
             LDFWriterPath = LDFWriterPath + fileInfo.Name
-            firstOccurancePath = fileInfo.Directory.ToString + "\ModifiedFiles\" + "FirstOccuranceFile"
+            firstOccurancePath = fileInfo.Directory.ToString + "\ModifiedFiles\" + "FirstOccurrenceFile.txt"
             wStream = New FileStream(LDFWriterPath, FileMode.OpenOrCreate, FileAccess.Write)
             Using LDFWriter As StreamWriter = New StreamWriter(wStream, Encoding.Default)
                 ' MessageBox.Show(LDFWriterPath)
