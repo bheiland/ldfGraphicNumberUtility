@@ -91,7 +91,7 @@ Public Class Form1
 
         '    ListViewDictionary.Items.Add(item)
         'Next
-        Me.WindowState = FormWindowState.Maximized
+        ' Me.WindowState = FormWindowState.Maximized
     End Sub
 
     Private Sub ButtonSelectFile_Click(ByVal sender As System.Object, ByVal e As System.EventArgs) Handles ButtonSelectFile.Click
@@ -192,7 +192,12 @@ Public Class Form1
             LDFReader = New StreamReader(filepath, System.Text.Encoding.Default, True)
             Dim fileInfo As New FileInfo(filepath)
             filepath1 = fileInfo
-            LDFWriterPath = fileInfo.Directory.ToString + "\M" + fileInfo.Name
+            LDFWriterPath = fileInfo.Directory.ToString + "\ModifiedFiles\"
+            If Not Directory.Exists(LDFWriterPath) Then
+                Directory.CreateDirectory(LDFWriterPath)
+            End If
+            LDFWriterPath = LDFWriterPath + fileInfo.Name
+
             wStream = New FileStream(LDFWriterPath, FileMode.OpenOrCreate, FileAccess.Write)
             Using LDFWriter As StreamWriter = New StreamWriter(wStream, Encoding.Default)
                 ' MessageBox.Show(LDFWriterPath)
