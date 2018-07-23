@@ -1408,9 +1408,11 @@ Public Class Form1
     End Sub
 
     Private Sub Button1_Click(sender As System.Object, e As System.EventArgs) Handles ButtonAddDict.Click
+
         OpenFileDialog2.Multiselect = False
         OpenFileDialog2.Filter = "txt files (*.txt|*.txt|All Files (*.*)|*.*"
         OpenFileDialog2.FilterIndex = 2
+        OpenFileDialog2.InitialDirectory = My.Settings.LastDictionaryLocation
         OpenFileDialog2.RestoreDirectory = True
         OpenFileDialog2.Title = "Please Selected a Dictionary File"
 
@@ -1418,6 +1420,9 @@ Public Class Form1
     End Sub
     Private Sub OpenFileDialog2_FileOk(sender As Object, e As System.ComponentModel.CancelEventArgs) Handles OpenFileDialog2.FileOk
         Dim allLines As String() = File.ReadAllLines(OpenFileDialog2.FileName, Encoding.Default)
+
+        Dim fileInfo As New FileInfo(OpenFileDialog2.FileName)
+        My.Settings.LastDictionaryLocation = fileInfo.Directory.ToString
         Dim arr(3) As String
         'lookupDict.Clear()
         For i = 0 To allLines.Count - 1
@@ -1468,11 +1473,5 @@ Public Class Form1
 
     End Sub
 
-    Private Sub TextBox3_TextChanged(sender As Object, e As EventArgs) Handles TextBox3.TextChanged
 
-    End Sub
-
-    Private Sub TextBox3_DoubleClick(sender As Object, e As EventArgs) Handles TextBox3.DoubleClick
-
-    End Sub
 End Class

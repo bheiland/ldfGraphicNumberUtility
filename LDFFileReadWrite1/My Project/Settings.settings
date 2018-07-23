@@ -5,5 +5,8 @@
     <Setting Name="lastFolderBrowserPath2" Type="System.String" Scope="User">
       <Value Profile="(Default)">c:\jobs\</Value>
     </Setting>
+    <Setting Name="LastDictionaryLocation" Type="System.String" Scope="User">
+      <Value Profile="(Default)">c:\</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
