@@ -470,6 +470,7 @@ Public Class Form1
                             '    StringToOutput = StringToOutput & ldfRecordNumber & "," & DataFromLineToCheckLength & "," & LineData(AlternateLineToCheckLength).Trim & "," & LineData(19).Trim & vbCrLf
                             'End If
                             bitmapName = LineData(NumericUpDownGraphicLineToScan.Value).Trim
+                            FirstOccurance = False
                             If Len(bitmapName) > 0 Then
                                 ReDim Preserve UniqueBitmapCodes(BitmapElements)
                                 ReDim Preserve BitmapCounts(BitmapElements)
@@ -486,6 +487,7 @@ Public Class Form1
                                     End If
                                 Next
                                 If (BitmapNameFound = False) And (smatch = True) Then
+                                    BitmapElements += 1
                                     ReDim Preserve UniqueBitmapCodes(BitmapElements)
                                     ReDim Preserve BitmapRecordNumberFirstOccurance(BitmapElements)
                                     ReDim Preserve DataLineStringLongest(BitmapElements)
@@ -496,7 +498,7 @@ Public Class Form1
                                     'DataLineStringLongest(BitmapIndex - 1) = ((LineData(NumericUpDownLineToScan.Value).ToString).Trim)
 
                                     BitmapCounts(BitmapIndex - 1) = 1
-                                    BitmapElements += 1
+
                                     'Else
                                     '    Dim tempstring As String = (LineData(NumericUpDownLineToScan.Value).ToString).Trim
                                     '    If Len((LineData(NumericUpDownLineToScan.Value).ToString).Trim) > Len(DataLineStringLongest(BitmapIndex)) Then
