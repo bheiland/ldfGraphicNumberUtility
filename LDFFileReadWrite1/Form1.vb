@@ -23,6 +23,7 @@ Public Class Form1
     Dim BitmapElements As Integer = 0
     Dim clickedindex As Integer = 0
     Dim lookupDict As New Dictionary(Of String, String)()
+    Dim missingCodeDictionary As New Dictionary(Of String, String)()
     Dim runOnce As Boolean = True
     Dim firstOccurancePath As String = "c:\FirstOccuranceFile"
     ' Dim firstrun As Boolean = False
@@ -161,6 +162,7 @@ Public Class Form1
         'Dim startRecord As Integer
         ' Dim endRecord As Integer
         Dim ldfRecordNumber As Integer
+        Dim ldfRecordHeaderVersion As String
         Dim CountRecord As Boolean
 
         'Dim DataFromLineToCheckLength As String
@@ -176,7 +178,7 @@ Public Class Form1
         Static Dim warned As Boolean
         Static Dim warned2 As Boolean
         UniqueBitmapCodes(0) = vbNull
-
+        missingCodeDictionary.Clear()
         BitmapElements = 0
         warned = False
         warned2 = False
@@ -222,6 +224,7 @@ Public Class Form1
                                 RecordCount += 1
                                 LineData = ParseRecord(ActiveRecord)
                                 ldfRecordNumber = Val(Mid(LineData(0), 4, 9))
+                                ldfRecordHeaderVersion = Mid(LineData(0), 36, 12).Trim
 
 
                                 Dim smatch As Boolean = ((Microsoft.VisualBasic.Left(LineData(NumericUpDownGraphicLineToScan.Value), 4)) Like "####")
@@ -243,14 +246,20 @@ Public Class Form1
                                         'LineData(NumericUpDownLineToReplace.Value) = lookupDict(Microsoft.VisualBasic.Left(LineData(NumericUpDownGraphicLineToScan.Value), 4))
                                         'LineData(32) = LineData(32) + Chr(GROUPSEP)
                                     Else
+                                        If missingCodeDictionary.ContainsKey(Microsoft.VisualBasic.Left(LineData(NumericUpDownGraphicLineToScan.Value), 4)) = True Then
+                                            warned = True
+                                        Else
+                                            missingCodeDictionary.Add(Microsoft.VisualBasic.Left(LineData(NumericUpDownGraphicLineToScan.Value), 4), " ")
+                                            warned = False
+                                        End If
                                         If warned = False Then
 
-                                            warned = True
-                                            MessageBox.Show("No dictionary entry for " + Microsoft.VisualBasic.Left(LineData(17), 4) + " There will be only one warning")
+                                            'warned = True
+                                            MessageBox.Show("No dictionary entry for " + Microsoft.VisualBasic.Left(LineData(17), 4) + " There will be only one warning per code")
                                         End If
 
                                     End If
-                                End If
+                                    End If
 
 
                                 If ldfRecordNumber >= Val(TextBoxStartRecord.Text) And ldfRecordNumber <= Val(TextBoxEndRecord.Text) Then
