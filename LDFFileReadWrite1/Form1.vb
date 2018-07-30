@@ -24,6 +24,8 @@ Public Class Form1
     Dim clickedindex As Integer = 0
     Dim lookupDict As New Dictionary(Of String, String)()
     Dim missingCodeDictionary As New Dictionary(Of String, String)()
+    Dim firstVersionOccuranceNonGraphic As New Dictionary(Of String, String)()
+
     Dim runOnce As Boolean = True
     Dim firstOccurancePath As String = "c:\FirstOccuranceFile"
     ' Dim firstrun As Boolean = False
@@ -178,11 +180,13 @@ Public Class Form1
         Dim labelLength As Integer
         Dim firstoccuranceLDFstring As String = ""
         Dim FirstOccurance As Boolean = False
+        Dim firstVersionOccurance As Boolean = False
         Dim filepath1 As FileInfo
         Static Dim warned As Boolean
         Static Dim warned2 As Boolean
         UniqueBitmapCodes(0) = vbNull
         missingCodeDictionary.Clear()
+        firstVersionOccuranceNonGraphic.Clear()
         ListViewUndefinedCodes.Items.Clear()
         BitmapElements = 0
         warned = False
@@ -265,7 +269,15 @@ Public Class Form1
                                         End If
 
                                     End If
+                                Else
+                                    'this record does not have four digit code check for first occurance of version
+                                    If firstVersionOccuranceNonGraphic.ContainsKey(ldfRecordHeaderVersion) = True Then
+                                        firstVersionOccurance = False
+                                    Else
+                                        firstVersionOccuranceNonGraphic.Add(ldfRecordHeaderVersion, " ")
+                                        firstVersionOccurance = True
                                     End If
+                                End If
 
 
                                 If ldfRecordNumber >= Val(TextBoxStartRecord.Text) And ldfRecordNumber <= Val(TextBoxEndRecord.Text) Then
@@ -362,7 +374,7 @@ Public Class Form1
                                         TextBox1.Text = TextBoxLabel
                                         UpdateListviewItems()
                                     End If
-                                    If (FirstOccurance = True) Then
+                                    If ((FirstOccurance = True) Or (firstVersionOccurance = True)) Then
                                         OutputRecordLabel = ""
                                         LineData(0) = LineData(0).Replace("Q", " ")
                                         For index = 0 To LineData.Length - 2
@@ -388,6 +400,7 @@ Public Class Form1
                         Next
                         LineData = ParseRecord(ActiveRecord)
                         ldfRecordNumber = Val(Mid(LineData(0), 4, 9))
+                        ldfRecordHeaderVersion = Mid(LineData(0), 36, 12).Trim
                         Dim smatch As Boolean = ((Microsoft.VisualBasic.Left(LineData(NumericUpDownGraphicLineToScan.Value), 4)) Like "####")
                         If smatch = True Then
                             If lookupDict.ContainsKey(Microsoft.VisualBasic.Left(LineData(NumericUpDownGraphicLineToScan.Value), 4)) = True Then
@@ -420,6 +433,15 @@ Public Class Form1
                                 End If
 
                             End If
+                        Else
+                            'this record does not have four digit code check for first occurance of version
+                            If firstVersionOccuranceNonGraphic.ContainsKey(ldfRecordHeaderVersion) = True Then
+                                firstVersionOccurance = False
+                            Else
+                                firstVersionOccuranceNonGraphic.Add(ldfRecordHeaderVersion, " ")
+                                firstVersionOccurance = True
+                            End If
+
                         End If
 
 

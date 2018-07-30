@@ -102,7 +102,7 @@ Partial Class Form1
         '
         'ListViewCharacters
         '
-        Me.ListViewCharacters.Location = New System.Drawing.Point(966, 114)
+        Me.ListViewCharacters.Location = New System.Drawing.Point(1058, 7)
         Me.ListViewCharacters.MultiSelect = False
         Me.ListViewCharacters.Name = "ListViewCharacters"
         Me.ListViewCharacters.Size = New System.Drawing.Size(81, 28)
