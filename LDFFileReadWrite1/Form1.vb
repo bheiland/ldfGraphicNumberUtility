@@ -401,10 +401,16 @@ Public Class Form1
                                 'LineData(NumericUpDownLineToReplace.Value) = lookupDict(Microsoft.VisualBasic.Left(LineData(NumericUpDownGraphicLineToScan.Value), 4))
                                 'LineData(32) = LineData(32) + Chr(GROUPSEP)
                             Else
+                                If missingCodeDictionary.ContainsKey(Microsoft.VisualBasic.Left(LineData(NumericUpDownGraphicLineToScan.Value), 4)) = True Then
+                                    warned = True
+                                Else
+                                    missingCodeDictionary.Add(Microsoft.VisualBasic.Left(LineData(NumericUpDownGraphicLineToScan.Value), 4), " ")
+                                    warned = False
+                                End If
                                 If warned = False Then
 
-                                    warned = True
-                                    MessageBox.Show("No dictionary entry for " + Microsoft.VisualBasic.Left(LineData(17), 4) + " There will be only one warning")
+                                    'warned = True
+                                    MessageBox.Show("No dictionary entry for " + Microsoft.VisualBasic.Left(LineData(17), 4) + " There will be only one warning per code")
                                 End If
 
                             End If
@@ -1172,7 +1178,7 @@ Public Class Form1
         Dim FoundRecordEnd As Integer
         Dim ActiveRecord As String
         Dim PartialBuffer As String
-        Dim BufferLength As Integer = 4096 '8192
+        Dim BufferLength As Integer = 1048576 '524288 '8192
         Dim Buffer(BufferLength) As Byte
         Dim BufferString As String
         Dim BufferCount As Integer
