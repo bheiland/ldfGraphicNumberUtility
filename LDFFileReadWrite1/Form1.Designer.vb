@@ -64,7 +64,7 @@ Partial Class Form1
         Me.ButtonSelectFile.Name = "ButtonSelectFile"
         Me.ButtonSelectFile.Size = New System.Drawing.Size(162, 23)
         Me.ButtonSelectFile.TabIndex = 0
-        Me.ButtonSelectFile.Text = "Select Files"
+        Me.ButtonSelectFile.Text = "Select LDF Files"
         Me.ButtonSelectFile.UseVisualStyleBackColor = True
         '
         'TextBox1
