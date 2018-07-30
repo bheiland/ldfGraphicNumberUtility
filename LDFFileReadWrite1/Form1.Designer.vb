@@ -1,9 +1,9 @@
-﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
+﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()>
 Partial Class Form1
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
-    <System.Diagnostics.DebuggerNonUserCode()> _
+    <System.Diagnostics.DebuggerNonUserCode()>
     Protected Overrides Sub Dispose(ByVal disposing As Boolean)
         Try
             If disposing AndAlso components IsNot Nothing Then
@@ -20,7 +20,7 @@ Partial Class Form1
     'NOTE: The following procedure is required by the Windows Form Designer
     'It can be modified using the Windows Form Designer.  
     'Do not modify it using the code editor.
-    <System.Diagnostics.DebuggerStepThrough()> _
+    <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
         Me.ButtonSelectFile = New System.Windows.Forms.Button()
         Me.TextBox1 = New System.Windows.Forms.TextBox()
@@ -52,6 +52,7 @@ Partial Class Form1
         Me.TextBox2 = New System.Windows.Forms.TextBox()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.ButtonClearDictionaryFile = New System.Windows.Forms.Button()
+        Me.ListViewUndefinedCodes = New System.Windows.Forms.ListView()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NumericUpDownLineToReplace, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NumericUpDownGraphicLineToScan, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -312,11 +313,22 @@ Partial Class Form1
         Me.ButtonClearDictionaryFile.Text = "Clear Dictionary File"
         Me.ButtonClearDictionaryFile.UseVisualStyleBackColor = True
         '
+        'ListViewUndefinedCodes
+        '
+        Me.ListViewUndefinedCodes.Location = New System.Drawing.Point(1053, 148)
+        Me.ListViewUndefinedCodes.MultiSelect = False
+        Me.ListViewUndefinedCodes.Name = "ListViewUndefinedCodes"
+        Me.ListViewUndefinedCodes.Size = New System.Drawing.Size(86, 204)
+        Me.ListViewUndefinedCodes.Sorting = System.Windows.Forms.SortOrder.Ascending
+        Me.ListViewUndefinedCodes.TabIndex = 49
+        Me.ListViewUndefinedCodes.UseCompatibleStateImageBehavior = False
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1147, 666)
+        Me.Controls.Add(Me.ListViewUndefinedCodes)
         Me.Controls.Add(Me.ButtonClearDictionaryFile)
         Me.Controls.Add(Me.Label1)
         Me.Controls.Add(Me.TextBox2)
@@ -384,4 +396,5 @@ Partial Class Form1
     Friend WithEvents TextBox2 As System.Windows.Forms.TextBox
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents ButtonClearDictionaryFile As Button
+    Friend WithEvents ListViewUndefinedCodes As ListView
 End Class

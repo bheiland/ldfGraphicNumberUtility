@@ -54,6 +54,10 @@ Public Class Form1
         ListViewDictionary.Columns.Add("Value", 60)
         Dim tt As New ToolTip()
 
+        ListViewUndefinedCodes.View = View.Details
+        ListViewUndefinedCodes.GridLines = True
+        ListViewUndefinedCodes.FullRowSelect = True
+        ListViewUndefinedCodes.Columns.Add("Missing Codes", 120)
 
         ListViewGraphics.View = View.Details
         ListViewGraphics.GridLines = True
@@ -179,6 +183,7 @@ Public Class Form1
         Static Dim warned2 As Boolean
         UniqueBitmapCodes(0) = vbNull
         missingCodeDictionary.Clear()
+        ListViewUndefinedCodes.Items.Clear()
         BitmapElements = 0
         warned = False
         warned2 = False
@@ -251,6 +256,7 @@ Public Class Form1
                                         Else
                                             missingCodeDictionary.Add(Microsoft.VisualBasic.Left(LineData(NumericUpDownGraphicLineToScan.Value), 4), " ")
                                             warned = False
+                                            ListViewUndefinedCodes.Items.Add(Microsoft.VisualBasic.Left(LineData(NumericUpDownGraphicLineToScan.Value), 4))
                                         End If
                                         If warned = False Then
 
@@ -1493,5 +1499,9 @@ Public Class Form1
     Private Sub ButtonClearDictionaryFile_Click_1(sender As Object, e As EventArgs) Handles ButtonClearDictionaryFile.Click
         lookupDict.Clear()
         ListViewDictionary.Items.Clear()
+    End Sub
+
+    Private Sub ListViewUndefinedCodes_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListViewUndefinedCodes.SelectedIndexChanged
+
     End Sub
 End Class
