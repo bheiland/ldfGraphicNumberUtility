@@ -53,6 +53,7 @@ Partial Class Form1
         Me.Label1 = New System.Windows.Forms.Label()
         Me.ButtonClearDictionaryFile = New System.Windows.Forms.Button()
         Me.ListViewUndefinedCodes = New System.Windows.Forms.ListView()
+        Me.TextBox4 = New System.Windows.Forms.TextBox()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NumericUpDownLineToReplace, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NumericUpDownGraphicLineToScan, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -281,7 +282,7 @@ Partial Class Form1
         Me.TextBox3.Multiline = True
         Me.TextBox3.Name = "TextBox3"
         Me.TextBox3.ScrollBars = System.Windows.Forms.ScrollBars.Both
-        Me.TextBox3.Size = New System.Drawing.Size(291, 287)
+        Me.TextBox3.Size = New System.Drawing.Size(291, 137)
         Me.TextBox3.TabIndex = 45
         '
         'TextBox2
@@ -323,11 +324,21 @@ Partial Class Form1
         Me.ListViewUndefinedCodes.TabIndex = 49
         Me.ListViewUndefinedCodes.UseCompatibleStateImageBehavior = False
         '
+        'TextBox4
+        '
+        Me.TextBox4.Location = New System.Drawing.Point(761, 503)
+        Me.TextBox4.Multiline = True
+        Me.TextBox4.Name = "TextBox4"
+        Me.TextBox4.ScrollBars = System.Windows.Forms.ScrollBars.Both
+        Me.TextBox4.Size = New System.Drawing.Size(291, 142)
+        Me.TextBox4.TabIndex = 50
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
         Me.ClientSize = New System.Drawing.Size(1147, 666)
+        Me.Controls.Add(Me.TextBox4)
         Me.Controls.Add(Me.ListViewUndefinedCodes)
         Me.Controls.Add(Me.ButtonClearDictionaryFile)
         Me.Controls.Add(Me.Label1)
@@ -397,4 +408,5 @@ Partial Class Form1
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents ButtonClearDictionaryFile As Button
     Friend WithEvents ListViewUndefinedCodes As ListView
+    Friend WithEvents TextBox4 As TextBox
 End Class

@@ -24,7 +24,9 @@ Public Class Form1
     Dim clickedindex As Integer = 0
     Dim lookupDict As New Dictionary(Of String, String)()
     Dim missingCodeDictionary As New Dictionary(Of String, String)()
-    Dim firstVersionOccuranceNonGraphic As New Dictionary(Of String, String)()
+    Dim calculatedMostLinesFilled As Int32
+    Dim firstVersionOccuranceNonGraphic As New Dictionary(Of String, Integer)()
+
 
     Dim runOnce As Boolean = True
     Dim firstOccurancePath As String = "c:\FirstOccuranceFile"
@@ -182,8 +184,15 @@ Public Class Form1
         Dim FirstOccurance As Boolean = False
         Dim firstVersionOccurance As Boolean = False
         Dim filepath1 As FileInfo
+
+        Dim mostFilledLinesOfData(64) As String
+        Dim mostFilledLinesOfDataValue(64) As Int32
+        Dim mostFilledLinesOfDataIndex As Integer
+
         Static Dim warned As Boolean
         Static Dim warned2 As Boolean
+        mostFilledLinesOfDataIndex = 0
+
         UniqueBitmapCodes(0) = vbNull
         missingCodeDictionary.Clear()
         firstVersionOccuranceNonGraphic.Clear()
@@ -274,7 +283,8 @@ Public Class Form1
                                     If firstVersionOccuranceNonGraphic.ContainsKey(ldfRecordHeaderVersion) = True Then
                                         firstVersionOccurance = False
                                     Else
-                                        firstVersionOccuranceNonGraphic.Add(ldfRecordHeaderVersion, " ")
+                                        firstVersionOccuranceNonGraphic.Add(ldfRecordHeaderVersion, mostFilledLinesOfDataIndex)
+                                        mostFilledLinesOfDataIndex += 1
                                         firstVersionOccurance = True
                                     End If
                                 End If
@@ -346,45 +356,63 @@ Public Class Form1
                                     'Next
                                     '  Insert code here to write out ldf data
                                     OutputRecordLabel = ""
+                                    calculatedMostLinesFilled = 0
                                     For index = 0 To LineData.Length - 2
                                         OutputRecordLabel = OutputRecordLabel & LineData(index) + Chr(GROUPSEP)
+                                        If Not (String.IsNullOrEmpty((LineData(index).Trim))) Then
+                                            calculatedMostLinesFilled = calculatedMostLinesFilled + (1 << index)
+                                        End If
                                     Next
+                                    If firstVersionOccuranceNonGraphic.ContainsKey(ldfRecordHeaderVersion) = True Then
+                                        If calculatedMostLinesFilled > mostFilledLinesOfDataValue(firstVersionOccuranceNonGraphic(ldfRecordHeaderVersion)) Then
+                                            mostFilledLinesOfDataValue(firstVersionOccuranceNonGraphic(ldfRecordHeaderVersion)) = calculatedMostLinesFilled
+                                            mostFilledLinesOfData(firstVersionOccuranceNonGraphic(ldfRecordHeaderVersion)) = OutputRecordLabel
+                                        End If
+
+                                    Else
+                                        firstVersionOccuranceNonGraphic.Add(ldfRecordHeaderVersion, mostFilledLinesOfDataIndex)
+                                        mostFilledLinesOfDataValue(firstVersionOccuranceNonGraphic(ldfRecordHeaderVersion)) = calculatedMostLinesFilled
+                                        mostFilledLinesOfData(firstVersionOccuranceNonGraphic(ldfRecordHeaderVersion)) = OutputRecordLabel
+                                        mostFilledLinesOfDataIndex += 1
+
+                                    End If
+
                                     OutputRecordLabel = OutputRecordLabel & LineData(LineData.Length - 1) '+ Chr(10)
 
-                                    LDFWriter.Write(OutputRecordLabel)
-                                    'If FirstOccurance = True Then
-                                    '    OutputRecordLabel = ""
-                                    '    LineData(0) = LineData(0).Replace("Q", " ")
-                                    '    For index = 0 To LineData.Length - 2
-                                    '        OutputRecordLabel = OutputRecordLabel & LineData(index).ToString + Chr(GROUPSEP)
-                                    '    Next
-                                    '    OutputRecordLabel = OutputRecordLabel & LineData(LineData.Length - 1).ToString + Chr(10)
-                                    '    firstoccuranceLDFstring = firstoccuranceLDFstring + OutputRecordLabel
-                                    'End If
-                                    'TextBox1.Text = TextBoxLabel
+                                        LDFWriter.Write(OutputRecordLabel)
+                                        'If FirstOccurance = True Then
+                                        '    OutputRecordLabel = ""
+                                        '    LineData(0) = LineData(0).Replace("Q", " ")
+                                        '    For index = 0 To LineData.Length - 2
+                                        '        OutputRecordLabel = OutputRecordLabel & LineData(index).ToString + Chr(GROUPSEP)
+                                        '    Next
+                                        '    OutputRecordLabel = OutputRecordLabel & LineData(LineData.Length - 1).ToString + Chr(10)
+                                        '    firstoccuranceLDFstring = firstoccuranceLDFstring + OutputRecordLabel
+                                        'End If
+                                        'TextBox1.Text = TextBoxLabel
 
 
 
 
-                                    If RecordCount Mod 3000 = False Then
-                                        TextBoxLabel = ""
-                                        For index = 0 To LineData.Length - 1
-                                            TextBoxLabel = TextBoxLabel & "[" & index & "] " & LineData(index) + Environment.NewLine
-                                        Next
-                                        TextBox1.Text = TextBoxLabel
-                                        UpdateListviewItems()
+                                        If RecordCount Mod 3000 = False Then
+                                            TextBoxLabel = ""
+                                            For index = 0 To LineData.Length - 1
+                                                TextBoxLabel = TextBoxLabel & "[" & index & "] " & LineData(index) + Environment.NewLine
+                                            Next
+                                            TextBox1.Text = TextBoxLabel
+                                            UpdateListviewItems()
+                                        End If
+                                        If ((FirstOccurance = True) Or (firstVersionOccurance = True)) Then
+                                            OutputRecordLabel = ""
+                                            LineData(0) = LineData(0).Replace("Q", " ")
+                                            For index = 0 To LineData.Length - 2
+                                                OutputRecordLabel = OutputRecordLabel & LineData(index) + Chr(GROUPSEP)
+                                            Next
+                                            OutputRecordLabel = OutputRecordLabel & LineData(LineData.Length - 1) '+ Chr(10)
+                                            firstoccuranceLDFstring = firstoccuranceLDFstring + OutputRecordLabel
+                                        End If
                                     End If
-                                    If ((FirstOccurance = True) Or (firstVersionOccurance = True)) Then
-                                        OutputRecordLabel = ""
-                                        LineData(0) = LineData(0).Replace("Q", " ")
-                                        For index = 0 To LineData.Length - 2
-                                            OutputRecordLabel = OutputRecordLabel & LineData(index) + Chr(GROUPSEP)
-                                        Next
-                                        OutputRecordLabel = OutputRecordLabel & LineData(LineData.Length - 1) '+ Chr(10)
-                                        firstoccuranceLDFstring = firstoccuranceLDFstring + OutputRecordLabel
-                                    End If
-                                End If
-                            Else
+                                Else
                                 PartialBuffer = Mid$(BufferString, FoundRecordStart, Len(BufferString) - FoundRecordStart)
                                 FoundRecordStart = 1
                                 CompleteRecordFound = False
@@ -438,7 +466,7 @@ Public Class Form1
                             If firstVersionOccuranceNonGraphic.ContainsKey(ldfRecordHeaderVersion) = True Then
                                 firstVersionOccurance = False
                             Else
-                                firstVersionOccuranceNonGraphic.Add(ldfRecordHeaderVersion, " ")
+                                firstVersionOccuranceNonGraphic.Add(ldfRecordHeaderVersion, 0)
                                 firstVersionOccurance = True
                             End If
 
@@ -472,10 +500,20 @@ Public Class Form1
                         If CountRecord Then
                             OutputRecordLabel = ""
                             labelLength = 0
+                            calculatedMostLinesFilled = 0
                             For index = 0 To LineData.Length - 2
                                 OutputRecordLabel = OutputRecordLabel & LineData(index) + Chr(GROUPSEP)
                                 labelLength = labelLength + LineData(index).Length
+                                If Not (String.IsNullOrEmpty((LineData(index).Trim))) Then
+                                    calculatedMostLinesFilled = calculatedMostLinesFilled + (1 << index)
+                                End If
+
                             Next
+                            TextBox4.Text = ""
+                            For index = 0 To mostFilledLinesOfDataIndex - 1
+                                TextBox4.Text += mostFilledLinesOfData(index)
+                            Next
+                            firstVersionOccuranceNonGraphic(ldfRecordHeaderVersion) = calculatedMostLinesFilled
                             OutputRecordLabel = OutputRecordLabel & LineData(LineData.Length - 1)
                             If (FirstOccurance = True) Then
                                 If BitmapNameFound = False Then
