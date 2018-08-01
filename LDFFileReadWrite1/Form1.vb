@@ -184,14 +184,14 @@ Public Class Form1
         Dim FirstOccurance As Boolean = False
         Dim firstVersionOccurance As Boolean = False
         Dim filepath1 As FileInfo
-
-        Dim mostFilledLinesOfData(64) As String
+        Dim mostFilledLinesOfDataIndex As Integer = 0
+        Dim mostFilledLinesOfData(mostFilledLinesOfDataIndex) As String
         Dim mostFilledLinesOfDataValue(64) As Int32
-        Dim mostFilledLinesOfDataIndex As Integer
+
 
         Static Dim warned As Boolean
         Static Dim warned2 As Boolean
-        mostFilledLinesOfDataIndex = 0
+        'mostFilledLinesOfDataIndex = 0
 
         UniqueBitmapCodes(0) = vbNull
         missingCodeDictionary.Clear()
@@ -285,6 +285,7 @@ Public Class Form1
                                     Else
                                         firstVersionOccuranceNonGraphic.Add(ldfRecordHeaderVersion, mostFilledLinesOfDataIndex)
                                         mostFilledLinesOfDataIndex += 1
+                                        ReDim Preserve mostFilledLinesOfData(mostFilledLinesOfDataIndex)
                                         firstVersionOccurance = True
                                     End If
                                 End If
@@ -365,6 +366,7 @@ Public Class Form1
                                     Next
                                     If firstVersionOccuranceNonGraphic.ContainsKey(ldfRecordHeaderVersion) = True Then
                                         If calculatedMostLinesFilled > mostFilledLinesOfDataValue(firstVersionOccuranceNonGraphic(ldfRecordHeaderVersion)) Then
+
                                             mostFilledLinesOfDataValue(firstVersionOccuranceNonGraphic(ldfRecordHeaderVersion)) = calculatedMostLinesFilled
                                             mostFilledLinesOfData(firstVersionOccuranceNonGraphic(ldfRecordHeaderVersion)) = OutputRecordLabel
                                         End If
@@ -372,9 +374,10 @@ Public Class Form1
                                     Else
                                         firstVersionOccuranceNonGraphic.Add(ldfRecordHeaderVersion, mostFilledLinesOfDataIndex)
                                         mostFilledLinesOfDataValue(firstVersionOccuranceNonGraphic(ldfRecordHeaderVersion)) = calculatedMostLinesFilled
+                                        'ReDim Preserve mostFilledLinesOfData(mostFilledLinesOfDataIndex)
                                         mostFilledLinesOfData(firstVersionOccuranceNonGraphic(ldfRecordHeaderVersion)) = OutputRecordLabel
                                         mostFilledLinesOfDataIndex += 1
-
+                                        ReDim Preserve mostFilledLinesOfData(mostFilledLinesOfDataIndex)
                                     End If
 
                                     OutputRecordLabel = OutputRecordLabel & LineData(LineData.Length - 1) '+ Chr(10)
@@ -510,10 +513,11 @@ Public Class Form1
 
                             Next
                             TextBox4.Text = ""
-                            For index = 0 To mostFilledLinesOfDataIndex - 1
+                            Array.Sort(mostFilledLinesOfData)
+                            For index = 0 To mostFilledLinesOfDataIndex
                                 TextBox4.Text += mostFilledLinesOfData(index)
                             Next
-                            firstVersionOccuranceNonGraphic(ldfRecordHeaderVersion) = calculatedMostLinesFilled
+                            'firstVersionOccuranceNonGraphic(ldfRecordHeaderVersion) = calculatedMostLinesFilled
                             OutputRecordLabel = OutputRecordLabel & LineData(LineData.Length - 1)
                             If (FirstOccurance = True) Then
                                 If BitmapNameFound = False Then
