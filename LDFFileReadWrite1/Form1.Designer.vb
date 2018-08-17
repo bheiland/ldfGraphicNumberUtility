@@ -54,10 +54,14 @@ Partial Class Form1
         Me.ButtonClearDictionaryFile = New System.Windows.Forms.Button()
         Me.ListViewUndefinedCodes = New System.Windows.Forms.ListView()
         Me.TextBox4 = New System.Windows.Forms.TextBox()
+        Me.CheckBoxIncludeFirstVersion = New System.Windows.Forms.CheckBox()
+        Me.CheckBoxPalletIdTo1 = New System.Windows.Forms.CheckBox()
+        Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NumericUpDownLineToReplace, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NumericUpDownGraphicLineToScan, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBoxBmpPreview, System.ComponentModel.ISupportInitialize).BeginInit()
+        Me.GroupBox1.SuspendLayout()
         Me.SuspendLayout()
         '
         'ButtonSelectFile
@@ -333,11 +337,44 @@ Partial Class Form1
         Me.TextBox4.Size = New System.Drawing.Size(291, 142)
         Me.TextBox4.TabIndex = 50
         '
+        'CheckBoxIncludeFirstVersion
+        '
+        Me.CheckBoxIncludeFirstVersion.AutoSize = True
+        Me.CheckBoxIncludeFirstVersion.Location = New System.Drawing.Point(6, 26)
+        Me.CheckBoxIncludeFirstVersion.Name = "CheckBoxIncludeFirstVersion"
+        Me.CheckBoxIncludeFirstVersion.Size = New System.Drawing.Size(120, 17)
+        Me.CheckBoxIncludeFirstVersion.TabIndex = 51
+        Me.CheckBoxIncludeFirstVersion.Text = "Include 1st Makeup"
+        Me.CheckBoxIncludeFirstVersion.UseVisualStyleBackColor = True
+        '
+        'CheckBoxPalletIdTo1
+        '
+        Me.CheckBoxPalletIdTo1.AutoSize = True
+        Me.CheckBoxPalletIdTo1.Location = New System.Drawing.Point(6, 49)
+        Me.CheckBoxPalletIdTo1.Name = "CheckBoxPalletIdTo1"
+        Me.CheckBoxPalletIdTo1.Size = New System.Drawing.Size(94, 17)
+        Me.CheckBoxPalletIdTo1.TabIndex = 52
+        Me.CheckBoxPalletIdTo1.Text = "Pallet ID's to 1"
+        Me.CheckBoxPalletIdTo1.TextAlign = System.Drawing.ContentAlignment.TopLeft
+        Me.CheckBoxPalletIdTo1.UseVisualStyleBackColor = True
+        '
+        'GroupBox1
+        '
+        Me.GroupBox1.Controls.Add(Me.CheckBoxPalletIdTo1)
+        Me.GroupBox1.Controls.Add(Me.CheckBoxIncludeFirstVersion)
+        Me.GroupBox1.Location = New System.Drawing.Point(1058, 358)
+        Me.GroupBox1.Name = "GroupBox1"
+        Me.GroupBox1.Size = New System.Drawing.Size(178, 72)
+        Me.GroupBox1.TabIndex = 53
+        Me.GroupBox1.TabStop = False
+        Me.GroupBox1.Text = "First Occurance File Settings"
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(1147, 666)
+        Me.ClientSize = New System.Drawing.Size(1248, 666)
+        Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.TextBox4)
         Me.Controls.Add(Me.ListViewUndefinedCodes)
         Me.Controls.Add(Me.ButtonClearDictionaryFile)
@@ -373,6 +410,8 @@ Partial Class Form1
         CType(Me.NumericUpDownLineToReplace, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.NumericUpDownGraphicLineToScan, System.ComponentModel.ISupportInitialize).EndInit()
         CType(Me.PictureBoxBmpPreview, System.ComponentModel.ISupportInitialize).EndInit()
+        Me.GroupBox1.ResumeLayout(False)
+        Me.GroupBox1.PerformLayout()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -409,4 +448,7 @@ Partial Class Form1
     Friend WithEvents ButtonClearDictionaryFile As Button
     Friend WithEvents ListViewUndefinedCodes As ListView
     Friend WithEvents TextBox4 As TextBox
+    Friend WithEvents CheckBoxIncludeFirstVersion As CheckBox
+    Friend WithEvents CheckBoxPalletIdTo1 As CheckBox
+    Friend WithEvents GroupBox1 As GroupBox
 End Class

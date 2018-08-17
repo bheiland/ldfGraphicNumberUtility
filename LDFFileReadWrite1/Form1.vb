@@ -286,7 +286,14 @@ Public Class Form1
                                         firstVersionOccuranceNonGraphic.Add(ldfRecordHeaderVersion, mostFilledLinesOfDataIndex)
                                         mostFilledLinesOfDataIndex += 1
                                         ReDim Preserve mostFilledLinesOfData(mostFilledLinesOfDataIndex)
-                                        firstVersionOccurance = True
+
+                                        If (CheckBoxIncludeFirstVersion.Checked = True) Then
+
+
+                                            firstVersionOccurance = True
+                                        Else
+                                            firstVersionOccurance = False
+                                        End If
                                     End If
                                 End If
 
@@ -407,8 +414,12 @@ Public Class Form1
                                         End If
                                         If ((FirstOccurance = True) Or (firstVersionOccurance = True)) Then
                                             OutputRecordLabel = ""
-                                            LineData(0) = LineData(0).Replace("Q", " ")
-                                            For index = 0 To LineData.Length - 2
+                                        LineData(0) = LineData(0).Replace("Q", " ")
+                                        If (CheckBoxPalletIdTo1.Checked = vbTrue) Then
+                                            LineData(0) = LineData(0).Remove(28, 6).Insert(28, "1     ")
+                                        End If
+
+                                        For index = 0 To LineData.Length - 2
                                                 OutputRecordLabel = OutputRecordLabel & LineData(index) + Chr(GROUPSEP)
                                             Next
                                             OutputRecordLabel = OutputRecordLabel & LineData(LineData.Length - 1) '+ Chr(10)
@@ -470,7 +481,14 @@ Public Class Form1
                                 firstVersionOccurance = False
                             Else
                                 firstVersionOccuranceNonGraphic.Add(ldfRecordHeaderVersion, 0)
-                                firstVersionOccurance = True
+                                If (CheckBoxIncludeFirstVersion.Checked = True) Then
+
+
+                                    firstVersionOccurance = True
+                                Else
+                                    firstVersionOccurance = False
+                                End If
+
                             End If
 
                         End If
@@ -515,7 +533,12 @@ Public Class Form1
                             TextBox4.Text = ""
                             Array.Sort(mostFilledLinesOfData)
                             For index = 0 To mostFilledLinesOfDataIndex
-                                TextBox4.Text += mostFilledLinesOfData(index)
+                                If (CheckBoxPalletIdTo1.Checked = vbTrue) Then
+                                    If mostFilledLinesOfData(index) IsNot Nothing Then
+                                        mostFilledLinesOfData(index) = mostFilledLinesOfData(index).Remove(28, 6).Insert(28, "1     ")
+                                    End If
+                                End If
+                                    TextBox4.Text += mostFilledLinesOfData(index)
                             Next
                             'firstVersionOccuranceNonGraphic(ldfRecordHeaderVersion) = calculatedMostLinesFilled
                             OutputRecordLabel = OutputRecordLabel & LineData(LineData.Length - 1)
