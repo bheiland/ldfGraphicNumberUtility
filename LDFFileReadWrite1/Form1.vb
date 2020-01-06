@@ -170,7 +170,7 @@ Public Class Form1
         'Dim startRecord As Integer
         ' Dim endRecord As Integer
         Dim ldfRecordNumber As Integer
-        Dim ldfRecordHeaderVersion As String
+        Dim ldfRecordHeaderMakeup As String
         Dim CountRecord As Boolean
 
         'Dim DataFromLineToCheckLength As String
@@ -183,6 +183,8 @@ Public Class Form1
         Dim firstoccuranceLDFstring As String = ""
         Dim FirstOccurance As Boolean = False
         Dim firstVersionOccurance As Boolean = False
+        Dim outputEveryOccuranceOfMakeup As Boolean = False
+        Dim everyOccuranceOfMakeupString As String = TextBoxOutputEveryMakeupMatching.Text
         Dim filepath1 As FileInfo
         Dim mostFilledLinesOfDataIndex As Integer = 0
         Dim mostFilledLinesOfData(mostFilledLinesOfDataIndex) As String
@@ -242,7 +244,7 @@ Public Class Form1
                                 RecordCount += 1
                                 LineData = ParseRecord(ActiveRecord)
                                 ldfRecordNumber = Val(Mid(LineData(0), 4, 9))
-                                ldfRecordHeaderVersion = Mid(LineData(0), 36, 12).Trim
+                                ldfRecordHeaderMakeup = Mid(LineData(0), 36, 12).Trim
 
 
                                 Dim smatch As Boolean = ((Microsoft.VisualBasic.Left(LineData(NumericUpDownGraphicLineToScan.Value), 4)) Like "####")
@@ -280,10 +282,10 @@ Public Class Form1
                                     End If
                                 Else
                                     'this record does not have four digit code check for first occurance of version
-                                    If firstVersionOccuranceNonGraphic.ContainsKey(ldfRecordHeaderVersion) = True Then
+                                    If firstVersionOccuranceNonGraphic.ContainsKey(ldfRecordHeaderMakeup) = True Then
                                         firstVersionOccurance = False
                                     Else
-                                        firstVersionOccuranceNonGraphic.Add(ldfRecordHeaderVersion, mostFilledLinesOfDataIndex)
+                                        firstVersionOccuranceNonGraphic.Add(ldfRecordHeaderMakeup, mostFilledLinesOfDataIndex)
                                         mostFilledLinesOfDataIndex += 1
                                         ReDim Preserve mostFilledLinesOfData(mostFilledLinesOfDataIndex)
 
@@ -293,6 +295,15 @@ Public Class Form1
                                             firstVersionOccurance = True
                                         Else
                                             firstVersionOccurance = False
+                                        End If
+                                    End If
+                                    If CheckBoxOutputMakeupMatching.Checked = False Then
+                                        outputEveryOccuranceOfMakeup = False
+                                    Else
+                                        If (everyOccuranceOfMakeupString = ldfRecordHeaderMakeup) Then
+                                            outputEveryOccuranceOfMakeup = True
+                                        Else
+                                            outputEveryOccuranceOfMakeup = False
                                         End If
                                     End If
                                 End If
@@ -371,18 +382,18 @@ Public Class Form1
                                             calculatedMostLinesFilled = calculatedMostLinesFilled + (1 << index)
                                         End If
                                     Next
-                                    If firstVersionOccuranceNonGraphic.ContainsKey(ldfRecordHeaderVersion) = True Then
-                                        If calculatedMostLinesFilled > mostFilledLinesOfDataValue(firstVersionOccuranceNonGraphic(ldfRecordHeaderVersion)) Then
+                                    If firstVersionOccuranceNonGraphic.ContainsKey(ldfRecordHeaderMakeup) = True Then
+                                        If calculatedMostLinesFilled > mostFilledLinesOfDataValue(firstVersionOccuranceNonGraphic(ldfRecordHeaderMakeup)) Then
 
-                                            mostFilledLinesOfDataValue(firstVersionOccuranceNonGraphic(ldfRecordHeaderVersion)) = calculatedMostLinesFilled
-                                            mostFilledLinesOfData(firstVersionOccuranceNonGraphic(ldfRecordHeaderVersion)) = OutputRecordLabel
+                                            mostFilledLinesOfDataValue(firstVersionOccuranceNonGraphic(ldfRecordHeaderMakeup)) = calculatedMostLinesFilled
+                                            mostFilledLinesOfData(firstVersionOccuranceNonGraphic(ldfRecordHeaderMakeup)) = OutputRecordLabel
                                         End If
 
                                     Else
-                                        firstVersionOccuranceNonGraphic.Add(ldfRecordHeaderVersion, mostFilledLinesOfDataIndex)
-                                        mostFilledLinesOfDataValue(firstVersionOccuranceNonGraphic(ldfRecordHeaderVersion)) = calculatedMostLinesFilled
+                                        firstVersionOccuranceNonGraphic.Add(ldfRecordHeaderMakeup, mostFilledLinesOfDataIndex)
+                                        mostFilledLinesOfDataValue(firstVersionOccuranceNonGraphic(ldfRecordHeaderMakeup)) = calculatedMostLinesFilled
                                         'ReDim Preserve mostFilledLinesOfData(mostFilledLinesOfDataIndex)
-                                        mostFilledLinesOfData(firstVersionOccuranceNonGraphic(ldfRecordHeaderVersion)) = OutputRecordLabel
+                                        mostFilledLinesOfData(firstVersionOccuranceNonGraphic(ldfRecordHeaderMakeup)) = OutputRecordLabel
                                         mostFilledLinesOfDataIndex += 1
                                         ReDim Preserve mostFilledLinesOfData(mostFilledLinesOfDataIndex)
                                     End If
@@ -412,20 +423,20 @@ Public Class Form1
                                             TextBox1.Text = TextBoxLabel
                                             UpdateListviewItems()
                                         End If
-                                        If ((FirstOccurance = True) Or (firstVersionOccurance = True)) Then
-                                            OutputRecordLabel = ""
+                                    If ((FirstOccurance = True) Or (firstVersionOccurance = True) Or (outputEveryOccuranceOfMakeup = True)) Then
+                                        OutputRecordLabel = ""
                                         LineData(0) = LineData(0).Replace("Q", " ")
                                         If (CheckBoxPalletIdTo1.Checked = vbTrue) Then
                                             LineData(0) = LineData(0).Remove(28, 6).Insert(28, "1     ")
                                         End If
 
                                         For index = 0 To LineData.Length - 2
-                                                OutputRecordLabel = OutputRecordLabel & LineData(index) + Chr(GROUPSEP)
-                                            Next
-                                            OutputRecordLabel = OutputRecordLabel & LineData(LineData.Length - 1) '+ Chr(10)
-                                            firstoccuranceLDFstring = firstoccuranceLDFstring + OutputRecordLabel
-                                        End If
+                                            OutputRecordLabel = OutputRecordLabel & LineData(index) + Chr(GROUPSEP)
+                                        Next
+                                        OutputRecordLabel = OutputRecordLabel & LineData(LineData.Length - 1) '+ Chr(10)
+                                        firstoccuranceLDFstring = firstoccuranceLDFstring + OutputRecordLabel
                                     End If
+                                End If
                                 Else
                                 PartialBuffer = Mid$(BufferString, FoundRecordStart, Len(BufferString) - FoundRecordStart)
                                 FoundRecordStart = 1
@@ -442,7 +453,7 @@ Public Class Form1
                         Next
                         LineData = ParseRecord(ActiveRecord)
                         ldfRecordNumber = Val(Mid(LineData(0), 4, 9))
-                        ldfRecordHeaderVersion = Mid(LineData(0), 36, 12).Trim
+                        ldfRecordHeaderMakeup = Mid(LineData(0), 36, 12).Trim
                         Dim smatch As Boolean = ((Microsoft.VisualBasic.Left(LineData(NumericUpDownGraphicLineToScan.Value), 4)) Like "####")
                         If smatch = True Then
                             If lookupDict.ContainsKey(Microsoft.VisualBasic.Left(LineData(NumericUpDownGraphicLineToScan.Value), 4)) = True Then
@@ -477,10 +488,10 @@ Public Class Form1
                             End If
                         Else
                             'this record does not have four digit code check for first occurance of version
-                            If firstVersionOccuranceNonGraphic.ContainsKey(ldfRecordHeaderVersion) = True Then
+                            If firstVersionOccuranceNonGraphic.ContainsKey(ldfRecordHeaderMakeup) = True Then
                                 firstVersionOccurance = False
                             Else
-                                firstVersionOccuranceNonGraphic.Add(ldfRecordHeaderVersion, 0)
+                                firstVersionOccuranceNonGraphic.Add(ldfRecordHeaderMakeup, 0)
                                 If (CheckBoxIncludeFirstVersion.Checked = True) Then
 
 
@@ -490,7 +501,15 @@ Public Class Form1
                                 End If
 
                             End If
-
+                            If CheckBoxOutputMakeupMatching.Checked = False Then
+                                outputEveryOccuranceOfMakeup = False
+                            Else
+                                If (everyOccuranceOfMakeupString = ldfRecordHeaderMakeup) Then
+                                    outputEveryOccuranceOfMakeup = True
+                                Else
+                                    outputEveryOccuranceOfMakeup = False
+                                End If
+                            End If
                         End If
 
 
@@ -540,7 +559,7 @@ Public Class Form1
                                 End If
                                     TextBox4.Text += mostFilledLinesOfData(index)
                             Next
-                            'firstVersionOccuranceNonGraphic(ldfRecordHeaderVersion) = calculatedMostLinesFilled
+                            'firstVersionOccuranceNonGraphic(ldfRecordHeaderMakeup) = calculatedMostLinesFilled
                             OutputRecordLabel = OutputRecordLabel & LineData(LineData.Length - 1)
                             If (FirstOccurance = True) Then
                                 If BitmapNameFound = False Then
@@ -553,6 +572,28 @@ Public Class Form1
                             'LDFWriter.Write(
                             'LDFWriter.Write(OutputRecordLabel, OutputRecordLabel, labelLength)
                             LDFWriter.Write(OutputRecordLabel)
+
+                            If RecordCount Mod 3000 = False Then
+                                TextBoxLabel = ""
+                                For index = 0 To LineData.Length - 1
+                                    TextBoxLabel = TextBoxLabel & "[" & index & "] " & LineData(index) + Environment.NewLine
+                                Next
+                                TextBox1.Text = TextBoxLabel
+                                UpdateListviewItems()
+                            End If
+                            If ((FirstOccurance = True) Or (firstVersionOccurance = True) Or (outputEveryOccuranceOfMakeup = True)) Then
+                                OutputRecordLabel = ""
+                                LineData(0) = LineData(0).Replace("Q", " ")
+                                If (CheckBoxPalletIdTo1.Checked = vbTrue) Then
+                                    LineData(0) = LineData(0).Remove(28, 6).Insert(28, "1     ")
+                                End If
+
+                                For index = 0 To LineData.Length - 2
+                                    OutputRecordLabel = OutputRecordLabel & LineData(index) + Chr(GROUPSEP)
+                                Next
+                                OutputRecordLabel = OutputRecordLabel & LineData(LineData.Length - 1) '+ Chr(10)
+                                firstoccuranceLDFstring = firstoccuranceLDFstring + OutputRecordLabel
+                            End If
                             LDFWriter.Flush()
                             LDFWriter.Close()
 
@@ -1589,6 +1630,10 @@ Public Class Form1
     End Sub
 
     Private Sub ListViewUndefinedCodes_SelectedIndexChanged(sender As Object, e As EventArgs) Handles ListViewUndefinedCodes.SelectedIndexChanged
+
+    End Sub
+
+    Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBoxOutputMakeupMatching.CheckedChanged
 
     End Sub
 End Class
