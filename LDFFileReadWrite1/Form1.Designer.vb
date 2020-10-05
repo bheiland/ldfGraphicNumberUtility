@@ -58,34 +58,38 @@ Partial Class Form1
         Me.CheckBoxPalletIdTo1 = New System.Windows.Forms.CheckBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
         Me.GroupBox2 = New System.Windows.Forms.GroupBox()
-        Me.CheckBoxOutputMakeupMatching = New System.Windows.Forms.CheckBox()
         Me.TextBoxOutputEveryMakeupMatching = New System.Windows.Forms.TextBox()
+        Me.CheckBoxOutputMakeupMatching = New System.Windows.Forms.CheckBox()
+        Me.GroupBox3 = New System.Windows.Forms.GroupBox()
+        Me.CheckBoxAppendDataMatrix = New System.Windows.Forms.CheckBox()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.NumericUpDownDataLineForDataMatrixEncoding = New System.Windows.Forms.NumericUpDown()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NumericUpDownLineToReplace, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NumericUpDownGraphicLineToScan, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.PictureBoxBmpPreview, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.GroupBox1.SuspendLayout()
         Me.GroupBox2.SuspendLayout()
+        Me.GroupBox3.SuspendLayout()
+        CType(Me.NumericUpDownDataLineForDataMatrixEncoding, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'ButtonSelectFile
         '
-        Me.ButtonSelectFile.Location = New System.Drawing.Point(24, 23)
-        Me.ButtonSelectFile.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
+        Me.ButtonSelectFile.Location = New System.Drawing.Point(12, 12)
         Me.ButtonSelectFile.Name = "ButtonSelectFile"
-        Me.ButtonSelectFile.Size = New System.Drawing.Size(324, 44)
+        Me.ButtonSelectFile.Size = New System.Drawing.Size(162, 23)
         Me.ButtonSelectFile.TabIndex = 0
         Me.ButtonSelectFile.Text = "Select LDF Files"
         Me.ButtonSelectFile.UseVisualStyleBackColor = True
         '
         'TextBox1
         '
-        Me.TextBox1.Location = New System.Drawing.Point(24, 133)
-        Me.TextBox1.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
+        Me.TextBox1.Location = New System.Drawing.Point(12, 69)
         Me.TextBox1.Multiline = True
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both
-        Me.TextBox1.Size = New System.Drawing.Size(888, 1104)
+        Me.TextBox1.Size = New System.Drawing.Size(446, 576)
         Me.TextBox1.TabIndex = 1
         '
         'OpenFileDialog1
@@ -96,30 +100,28 @@ Partial Class Form1
         '
         Me.LabelFileName.AutoSize = True
         Me.LabelFileName.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D
-        Me.LabelFileName.Location = New System.Drawing.Point(360, 33)
-        Me.LabelFileName.Margin = New System.Windows.Forms.Padding(6, 0, 6, 0)
+        Me.LabelFileName.Location = New System.Drawing.Point(180, 17)
         Me.LabelFileName.Name = "LabelFileName"
-        Me.LabelFileName.Size = New System.Drawing.Size(2, 27)
+        Me.LabelFileName.Size = New System.Drawing.Size(2, 15)
         Me.LabelFileName.TabIndex = 2
         '
         'ButtonScan
         '
         Me.ButtonScan.Enabled = False
-        Me.ButtonScan.Location = New System.Drawing.Point(1908, 17)
-        Me.ButtonScan.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
+        Me.ButtonScan.Location = New System.Drawing.Point(954, 9)
         Me.ButtonScan.Name = "ButtonScan"
-        Me.ButtonScan.Size = New System.Drawing.Size(186, 44)
+        Me.ButtonScan.Size = New System.Drawing.Size(93, 23)
         Me.ButtonScan.TabIndex = 3
         Me.ButtonScan.Text = "Start Process"
         Me.ButtonScan.UseVisualStyleBackColor = True
         '
         'ListViewCharacters
         '
-        Me.ListViewCharacters.Location = New System.Drawing.Point(2116, 13)
-        Me.ListViewCharacters.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
+        Me.ListViewCharacters.HideSelection = False
+        Me.ListViewCharacters.Location = New System.Drawing.Point(1058, 7)
         Me.ListViewCharacters.MultiSelect = False
         Me.ListViewCharacters.Name = "ListViewCharacters"
-        Me.ListViewCharacters.Size = New System.Drawing.Size(158, 50)
+        Me.ListViewCharacters.Size = New System.Drawing.Size(81, 28)
         Me.ListViewCharacters.TabIndex = 5
         Me.ListViewCharacters.UseCompatibleStateImageBehavior = False
         Me.ListViewCharacters.Visible = False
@@ -128,18 +130,16 @@ Partial Class Form1
         '
         Me.LabelFontName.AutoSize = True
         Me.LabelFontName.Font = New System.Drawing.Font("Arial", 12.0!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
-        Me.LabelFontName.Location = New System.Drawing.Point(74, 965)
-        Me.LabelFontName.Margin = New System.Windows.Forms.Padding(6, 0, 6, 0)
+        Me.LabelFontName.Location = New System.Drawing.Point(37, 502)
         Me.LabelFontName.Name = "LabelFontName"
-        Me.LabelFontName.Size = New System.Drawing.Size(0, 36)
+        Me.LabelFontName.Size = New System.Drawing.Size(0, 18)
         Me.LabelFontName.TabIndex = 8
         '
         'PictureBox1
         '
-        Me.PictureBox1.Location = New System.Drawing.Point(522, 1083)
-        Me.PictureBox1.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
+        Me.PictureBox1.Location = New System.Drawing.Point(261, 563)
         Me.PictureBox1.Name = "PictureBox1"
-        Me.PictureBox1.Size = New System.Drawing.Size(344, 158)
+        Me.PictureBox1.Size = New System.Drawing.Size(172, 82)
         Me.PictureBox1.TabIndex = 14
         Me.PictureBox1.TabStop = False
         Me.PictureBox1.Visible = False
@@ -147,99 +147,90 @@ Partial Class Form1
         'labelTotalInkML
         '
         Me.labelTotalInkML.AutoSize = True
-        Me.labelTotalInkML.Location = New System.Drawing.Point(1808, 660)
-        Me.labelTotalInkML.Margin = New System.Windows.Forms.Padding(6, 0, 6, 0)
+        Me.labelTotalInkML.Location = New System.Drawing.Point(904, 343)
         Me.labelTotalInkML.Name = "labelTotalInkML"
-        Me.labelTotalInkML.Size = New System.Drawing.Size(0, 25)
+        Me.labelTotalInkML.Size = New System.Drawing.Size(0, 13)
         Me.labelTotalInkML.TabIndex = 15
         '
         'Label4
         '
         Me.Label4.AutoSize = True
-        Me.Label4.Location = New System.Drawing.Point(1514, 183)
-        Me.Label4.Margin = New System.Windows.Forms.Padding(6, 0, 6, 0)
+        Me.Label4.Location = New System.Drawing.Point(757, 95)
         Me.Label4.Name = "Label4"
-        Me.Label4.Size = New System.Drawing.Size(213, 25)
+        Me.Label4.Size = New System.Drawing.Size(108, 13)
         Me.Label4.TabIndex = 17
         Me.Label4.Text = "Data Line to Replace"
         '
         'NumericUpDownLineToReplace
         '
-        Me.NumericUpDownLineToReplace.Location = New System.Drawing.Point(1760, 179)
-        Me.NumericUpDownLineToReplace.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
+        Me.NumericUpDownLineToReplace.Location = New System.Drawing.Point(880, 93)
         Me.NumericUpDownLineToReplace.Maximum = New Decimal(New Integer() {144, 0, 0, 0})
         Me.NumericUpDownLineToReplace.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.NumericUpDownLineToReplace.Name = "NumericUpDownLineToReplace"
-        Me.NumericUpDownLineToReplace.Size = New System.Drawing.Size(98, 31)
+        Me.NumericUpDownLineToReplace.Size = New System.Drawing.Size(49, 20)
         Me.NumericUpDownLineToReplace.TabIndex = 19
         Me.NumericUpDownLineToReplace.Value = New Decimal(New Integer() {16, 0, 0, 0})
         '
         'Label8
         '
         Me.Label8.AutoSize = True
-        Me.Label8.Location = New System.Drawing.Point(1514, 138)
-        Me.Label8.Margin = New System.Windows.Forms.Padding(6, 0, 6, 0)
+        Me.Label8.Location = New System.Drawing.Point(757, 72)
         Me.Label8.Name = "Label8"
-        Me.Label8.Size = New System.Drawing.Size(232, 25)
+        Me.Label8.Size = New System.Drawing.Size(117, 13)
         Me.Label8.TabIndex = 24
         Me.Label8.Text = "Graphic Line To Check"
         '
         'NumericUpDownGraphicLineToScan
         '
-        Me.NumericUpDownGraphicLineToScan.Location = New System.Drawing.Point(1760, 135)
-        Me.NumericUpDownGraphicLineToScan.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
+        Me.NumericUpDownGraphicLineToScan.Location = New System.Drawing.Point(880, 70)
         Me.NumericUpDownGraphicLineToScan.Maximum = New Decimal(New Integer() {144, 0, 0, 0})
         Me.NumericUpDownGraphicLineToScan.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
         Me.NumericUpDownGraphicLineToScan.Name = "NumericUpDownGraphicLineToScan"
-        Me.NumericUpDownGraphicLineToScan.Size = New System.Drawing.Size(98, 31)
+        Me.NumericUpDownGraphicLineToScan.Size = New System.Drawing.Size(49, 20)
         Me.NumericUpDownGraphicLineToScan.TabIndex = 25
         Me.NumericUpDownGraphicLineToScan.Value = New Decimal(New Integer() {17, 0, 0, 0})
         '
         'ListViewGraphics
         '
-        Me.ListViewGraphics.Location = New System.Drawing.Point(1522, 285)
-        Me.ListViewGraphics.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
+        Me.ListViewGraphics.HideSelection = False
+        Me.ListViewGraphics.Location = New System.Drawing.Point(761, 148)
         Me.ListViewGraphics.MultiSelect = False
         Me.ListViewGraphics.Name = "ListViewGraphics"
-        Me.ListViewGraphics.Size = New System.Drawing.Size(568, 389)
+        Me.ListViewGraphics.Size = New System.Drawing.Size(286, 204)
         Me.ListViewGraphics.TabIndex = 26
         Me.ListViewGraphics.UseCompatibleStateImageBehavior = False
         '
         'TextBoxStartRecord
         '
-        Me.TextBoxStartRecord.Location = New System.Drawing.Point(94, 83)
-        Me.TextBoxStartRecord.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
+        Me.TextBoxStartRecord.Location = New System.Drawing.Point(47, 43)
         Me.TextBoxStartRecord.Name = "TextBoxStartRecord"
-        Me.TextBoxStartRecord.Size = New System.Drawing.Size(76, 31)
+        Me.TextBoxStartRecord.Size = New System.Drawing.Size(40, 20)
         Me.TextBoxStartRecord.TabIndex = 29
         Me.TextBoxStartRecord.Text = "0"
         '
         'TextBoxEndRecord
         '
-        Me.TextBoxEndRecord.Location = New System.Drawing.Point(388, 83)
-        Me.TextBoxEndRecord.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
+        Me.TextBoxEndRecord.Location = New System.Drawing.Point(194, 43)
         Me.TextBoxEndRecord.Name = "TextBoxEndRecord"
-        Me.TextBoxEndRecord.Size = New System.Drawing.Size(106, 31)
+        Me.TextBoxEndRecord.Size = New System.Drawing.Size(55, 20)
         Me.TextBoxEndRecord.TabIndex = 30
         Me.TextBoxEndRecord.Text = "9999999"
         '
         'Label11
         '
         Me.Label11.AutoSize = True
-        Me.Label11.Location = New System.Drawing.Point(324, 90)
-        Me.Label11.Margin = New System.Windows.Forms.Padding(6, 0, 6, 0)
+        Me.Label11.Location = New System.Drawing.Point(162, 47)
         Me.Label11.Name = "Label11"
-        Me.Label11.Size = New System.Drawing.Size(50, 25)
+        Me.Label11.Size = New System.Drawing.Size(26, 13)
         Me.Label11.TabIndex = 31
         Me.Label11.Text = "End"
         '
         'Label12
         '
         Me.Label12.AutoSize = True
-        Me.Label12.Location = New System.Drawing.Point(24, 88)
-        Me.Label12.Margin = New System.Windows.Forms.Padding(6, 0, 6, 0)
+        Me.Label12.Location = New System.Drawing.Point(12, 46)
         Me.Label12.Name = "Label12"
-        Me.Label12.Size = New System.Drawing.Size(57, 25)
+        Me.Label12.Size = New System.Drawing.Size(29, 13)
         Me.Label12.TabIndex = 32
         Me.Label12.Text = "Start"
         '
@@ -249,10 +240,9 @@ Partial Class Form1
         '
         'PictureBoxBmpPreview
         '
-        Me.PictureBoxBmpPreview.Location = New System.Drawing.Point(522, 1083)
-        Me.PictureBoxBmpPreview.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
+        Me.PictureBoxBmpPreview.Location = New System.Drawing.Point(261, 563)
         Me.PictureBoxBmpPreview.Name = "PictureBoxBmpPreview"
-        Me.PictureBoxBmpPreview.Size = New System.Drawing.Size(296, 179)
+        Me.PictureBoxBmpPreview.Size = New System.Drawing.Size(148, 93)
         Me.PictureBoxBmpPreview.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage
         Me.PictureBoxBmpPreview.TabIndex = 35
         Me.PictureBoxBmpPreview.TabStop = False
@@ -260,10 +250,9 @@ Partial Class Form1
         '
         'ButtonAutoAddGraphics
         '
-        Me.ButtonAutoAddGraphics.Location = New System.Drawing.Point(952, 1023)
-        Me.ButtonAutoAddGraphics.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
+        Me.ButtonAutoAddGraphics.Location = New System.Drawing.Point(476, 532)
         Me.ButtonAutoAddGraphics.Name = "ButtonAutoAddGraphics"
-        Me.ButtonAutoAddGraphics.Size = New System.Drawing.Size(210, 44)
+        Me.ButtonAutoAddGraphics.Size = New System.Drawing.Size(105, 23)
         Me.ButtonAutoAddGraphics.TabIndex = 39
         Me.ButtonAutoAddGraphics.Text = "AutoAddGraphics"
         Me.ButtonAutoAddGraphics.UseVisualStyleBackColor = True
@@ -275,20 +264,18 @@ Partial Class Form1
         '
         'btnOutputTableToFile
         '
-        Me.btnOutputTableToFile.Location = New System.Drawing.Point(1522, 229)
-        Me.btnOutputTableToFile.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
+        Me.btnOutputTableToFile.Location = New System.Drawing.Point(761, 119)
         Me.btnOutputTableToFile.Name = "btnOutputTableToFile"
-        Me.btnOutputTableToFile.Size = New System.Drawing.Size(240, 44)
+        Me.btnOutputTableToFile.Size = New System.Drawing.Size(120, 23)
         Me.btnOutputTableToFile.TabIndex = 42
         Me.btnOutputTableToFile.Text = "Output table to file"
         Me.btnOutputTableToFile.UseVisualStyleBackColor = True
         '
         'ButtonAddDict
         '
-        Me.ButtonAddDict.Location = New System.Drawing.Point(980, 17)
-        Me.ButtonAddDict.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
+        Me.ButtonAddDict.Location = New System.Drawing.Point(490, 9)
         Me.ButtonAddDict.Name = "ButtonAddDict"
-        Me.ButtonAddDict.Size = New System.Drawing.Size(462, 44)
+        Me.ButtonAddDict.Size = New System.Drawing.Size(231, 23)
         Me.ButtonAddDict.TabIndex = 43
         Me.ButtonAddDict.Text = "Add Dictionary File"
         Me.ButtonAddDict.UseVisualStyleBackColor = True
@@ -299,81 +286,77 @@ Partial Class Form1
         '
         'ListViewDictionary
         '
-        Me.ListViewDictionary.Location = New System.Drawing.Point(952, 192)
-        Me.ListViewDictionary.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
+        Me.ListViewDictionary.HideSelection = False
+        Me.ListViewDictionary.Location = New System.Drawing.Point(476, 100)
         Me.ListViewDictionary.Name = "ListViewDictionary"
-        Me.ListViewDictionary.Size = New System.Drawing.Size(506, 1044)
+        Me.ListViewDictionary.Size = New System.Drawing.Size(255, 545)
         Me.ListViewDictionary.TabIndex = 44
         Me.ListViewDictionary.UseCompatibleStateImageBehavior = False
         '
         'TextBox3
         '
-        Me.TextBox3.Location = New System.Drawing.Point(1522, 688)
-        Me.TextBox3.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
+        Me.TextBox3.Location = New System.Drawing.Point(761, 358)
         Me.TextBox3.Multiline = True
         Me.TextBox3.Name = "TextBox3"
         Me.TextBox3.ScrollBars = System.Windows.Forms.ScrollBars.Both
-        Me.TextBox3.Size = New System.Drawing.Size(578, 260)
+        Me.TextBox3.Size = New System.Drawing.Size(291, 137)
         Me.TextBox3.TabIndex = 45
         '
         'TextBox2
         '
-        Me.TextBox2.Location = New System.Drawing.Point(1358, 133)
-        Me.TextBox2.Margin = New System.Windows.Forms.Padding(4, 4, 4, 4)
+        Me.TextBox2.Location = New System.Drawing.Point(679, 69)
+        Me.TextBox2.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.TextBox2.MaxLength = 3
         Me.TextBox2.Name = "TextBox2"
-        Me.TextBox2.Size = New System.Drawing.Size(100, 31)
+        Me.TextBox2.Size = New System.Drawing.Size(52, 20)
         Me.TextBox2.TabIndex = 46
         Me.TextBox2.Text = "102"
         '
         'Label1
         '
         Me.Label1.AutoSize = True
-        Me.Label1.Location = New System.Drawing.Point(948, 133)
-        Me.Label1.Margin = New System.Windows.Forms.Padding(4, 0, 4, 0)
+        Me.Label1.Location = New System.Drawing.Point(474, 69)
+        Me.Label1.Margin = New System.Windows.Forms.Padding(2, 0, 2, 0)
         Me.Label1.Name = "Label1"
-        Me.Label1.Size = New System.Drawing.Size(314, 25)
+        Me.Label1.Size = New System.Drawing.Size(156, 13)
         Me.Label1.TabIndex = 47
         Me.Label1.Text = "Global font for characters > 255"
         '
         'ButtonClearDictionaryFile
         '
-        Me.ButtonClearDictionaryFile.Location = New System.Drawing.Point(980, 69)
-        Me.ButtonClearDictionaryFile.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
+        Me.ButtonClearDictionaryFile.Location = New System.Drawing.Point(490, 36)
         Me.ButtonClearDictionaryFile.Name = "ButtonClearDictionaryFile"
-        Me.ButtonClearDictionaryFile.Size = New System.Drawing.Size(462, 44)
+        Me.ButtonClearDictionaryFile.Size = New System.Drawing.Size(231, 23)
         Me.ButtonClearDictionaryFile.TabIndex = 48
         Me.ButtonClearDictionaryFile.Text = "Clear Dictionary File"
         Me.ButtonClearDictionaryFile.UseVisualStyleBackColor = True
         '
         'ListViewUndefinedCodes
         '
-        Me.ListViewUndefinedCodes.Location = New System.Drawing.Point(2106, 285)
-        Me.ListViewUndefinedCodes.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
+        Me.ListViewUndefinedCodes.HideSelection = False
+        Me.ListViewUndefinedCodes.Location = New System.Drawing.Point(1053, 148)
         Me.ListViewUndefinedCodes.MultiSelect = False
         Me.ListViewUndefinedCodes.Name = "ListViewUndefinedCodes"
-        Me.ListViewUndefinedCodes.Size = New System.Drawing.Size(168, 389)
+        Me.ListViewUndefinedCodes.Size = New System.Drawing.Size(86, 204)
         Me.ListViewUndefinedCodes.Sorting = System.Windows.Forms.SortOrder.Ascending
         Me.ListViewUndefinedCodes.TabIndex = 49
         Me.ListViewUndefinedCodes.UseCompatibleStateImageBehavior = False
         '
         'TextBox4
         '
-        Me.TextBox4.Location = New System.Drawing.Point(1522, 967)
-        Me.TextBox4.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
+        Me.TextBox4.Location = New System.Drawing.Point(761, 503)
         Me.TextBox4.Multiline = True
         Me.TextBox4.Name = "TextBox4"
         Me.TextBox4.ScrollBars = System.Windows.Forms.ScrollBars.Both
-        Me.TextBox4.Size = New System.Drawing.Size(578, 269)
+        Me.TextBox4.Size = New System.Drawing.Size(291, 142)
         Me.TextBox4.TabIndex = 50
         '
         'CheckBoxIncludeFirstVersion
         '
         Me.CheckBoxIncludeFirstVersion.AutoSize = True
-        Me.CheckBoxIncludeFirstVersion.Location = New System.Drawing.Point(12, 50)
-        Me.CheckBoxIncludeFirstVersion.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
+        Me.CheckBoxIncludeFirstVersion.Location = New System.Drawing.Point(6, 26)
         Me.CheckBoxIncludeFirstVersion.Name = "CheckBoxIncludeFirstVersion"
-        Me.CheckBoxIncludeFirstVersion.Size = New System.Drawing.Size(231, 29)
+        Me.CheckBoxIncludeFirstVersion.Size = New System.Drawing.Size(120, 17)
         Me.CheckBoxIncludeFirstVersion.TabIndex = 51
         Me.CheckBoxIncludeFirstVersion.Text = "Include 1st Makeup"
         Me.CheckBoxIncludeFirstVersion.UseVisualStyleBackColor = True
@@ -381,10 +364,9 @@ Partial Class Form1
         'CheckBoxPalletIdTo1
         '
         Me.CheckBoxPalletIdTo1.AutoSize = True
-        Me.CheckBoxPalletIdTo1.Location = New System.Drawing.Point(12, 94)
-        Me.CheckBoxPalletIdTo1.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
+        Me.CheckBoxPalletIdTo1.Location = New System.Drawing.Point(6, 49)
         Me.CheckBoxPalletIdTo1.Name = "CheckBoxPalletIdTo1"
-        Me.CheckBoxPalletIdTo1.Size = New System.Drawing.Size(181, 29)
+        Me.CheckBoxPalletIdTo1.Size = New System.Drawing.Size(94, 17)
         Me.CheckBoxPalletIdTo1.TabIndex = 52
         Me.CheckBoxPalletIdTo1.Text = "Pallet ID's to 1"
         Me.CheckBoxPalletIdTo1.TextAlign = System.Drawing.ContentAlignment.TopLeft
@@ -394,11 +376,9 @@ Partial Class Form1
         '
         Me.GroupBox1.Controls.Add(Me.CheckBoxPalletIdTo1)
         Me.GroupBox1.Controls.Add(Me.CheckBoxIncludeFirstVersion)
-        Me.GroupBox1.Location = New System.Drawing.Point(2116, 688)
-        Me.GroupBox1.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
+        Me.GroupBox1.Location = New System.Drawing.Point(1058, 358)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Padding = New System.Windows.Forms.Padding(6, 6, 6, 6)
-        Me.GroupBox1.Size = New System.Drawing.Size(356, 138)
+        Me.GroupBox1.Size = New System.Drawing.Size(178, 72)
         Me.GroupBox1.TabIndex = 53
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "First Occurance File Settings"
@@ -407,35 +387,80 @@ Partial Class Form1
         '
         Me.GroupBox2.Controls.Add(Me.TextBoxOutputEveryMakeupMatching)
         Me.GroupBox2.Controls.Add(Me.CheckBoxOutputMakeupMatching)
-        Me.GroupBox2.Location = New System.Drawing.Point(2116, 848)
+        Me.GroupBox2.Location = New System.Drawing.Point(1058, 441)
+        Me.GroupBox2.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Size = New System.Drawing.Size(356, 134)
+        Me.GroupBox2.Padding = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.GroupBox2.Size = New System.Drawing.Size(178, 70)
         Me.GroupBox2.TabIndex = 54
         Me.GroupBox2.TabStop = False
         Me.GroupBox2.Text = "Every Occurance Settings"
         '
+        'TextBoxOutputEveryMakeupMatching
+        '
+        Me.TextBoxOutputEveryMakeupMatching.Location = New System.Drawing.Point(10, 47)
+        Me.TextBoxOutputEveryMakeupMatching.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.TextBoxOutputEveryMakeupMatching.Name = "TextBoxOutputEveryMakeupMatching"
+        Me.TextBoxOutputEveryMakeupMatching.Size = New System.Drawing.Size(143, 20)
+        Me.TextBoxOutputEveryMakeupMatching.TabIndex = 1
+        '
         'CheckBoxOutputMakeupMatching
         '
         Me.CheckBoxOutputMakeupMatching.AutoSize = True
-        Me.CheckBoxOutputMakeupMatching.Location = New System.Drawing.Point(18, 40)
+        Me.CheckBoxOutputMakeupMatching.Location = New System.Drawing.Point(9, 21)
+        Me.CheckBoxOutputMakeupMatching.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
         Me.CheckBoxOutputMakeupMatching.Name = "CheckBoxOutputMakeupMatching"
-        Me.CheckBoxOutputMakeupMatching.Size = New System.Drawing.Size(285, 29)
+        Me.CheckBoxOutputMakeupMatching.Size = New System.Drawing.Size(147, 17)
         Me.CheckBoxOutputMakeupMatching.TabIndex = 0
         Me.CheckBoxOutputMakeupMatching.Text = "Output Makeup Matching"
         Me.CheckBoxOutputMakeupMatching.UseVisualStyleBackColor = True
         '
-        'TextBoxOutputEveryMakeupMatching
+        'GroupBox3
         '
-        Me.TextBoxOutputEveryMakeupMatching.Location = New System.Drawing.Point(19, 90)
-        Me.TextBoxOutputEveryMakeupMatching.Name = "TextBoxOutputEveryMakeupMatching"
-        Me.TextBoxOutputEveryMakeupMatching.Size = New System.Drawing.Size(282, 31)
-        Me.TextBoxOutputEveryMakeupMatching.TabIndex = 1
+        Me.GroupBox3.Controls.Add(Me.NumericUpDownDataLineForDataMatrixEncoding)
+        Me.GroupBox3.Controls.Add(Me.Label2)
+        Me.GroupBox3.Controls.Add(Me.CheckBoxAppendDataMatrix)
+        Me.GroupBox3.Location = New System.Drawing.Point(1058, 516)
+        Me.GroupBox3.Name = "GroupBox3"
+        Me.GroupBox3.Size = New System.Drawing.Size(183, 117)
+        Me.GroupBox3.TabIndex = 55
+        Me.GroupBox3.TabStop = False
+        Me.GroupBox3.Text = "DataMatrix Encoding"
+        '
+        'CheckBoxAppendDataMatrix
+        '
+        Me.CheckBoxAppendDataMatrix.AutoSize = True
+        Me.CheckBoxAppendDataMatrix.Location = New System.Drawing.Point(10, 18)
+        Me.CheckBoxAppendDataMatrix.Name = "CheckBoxAppendDataMatrix"
+        Me.CheckBoxAppendDataMatrix.Size = New System.Drawing.Size(165, 17)
+        Me.CheckBoxAppendDataMatrix.TabIndex = 0
+        Me.CheckBoxAppendDataMatrix.Text = "Append DataMatrix Encoding"
+        Me.CheckBoxAppendDataMatrix.UseVisualStyleBackColor = True
+        '
+        'Label2
+        '
+        Me.Label2.AutoSize = True
+        Me.Label2.Location = New System.Drawing.Point(7, 47)
+        Me.Label2.Name = "Label2"
+        Me.Label2.Size = New System.Drawing.Size(109, 13)
+        Me.Label2.TabIndex = 1
+        Me.Label2.Text = "Data Line To Encode"
+        '
+        'NumericUpDownDataLineForDataMatrixEncoding
+        '
+        Me.NumericUpDownDataLineForDataMatrixEncoding.Location = New System.Drawing.Point(123, 47)
+        Me.NumericUpDownDataLineForDataMatrixEncoding.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.NumericUpDownDataLineForDataMatrixEncoding.Name = "NumericUpDownDataLineForDataMatrixEncoding"
+        Me.NumericUpDownDataLineForDataMatrixEncoding.Size = New System.Drawing.Size(40, 20)
+        Me.NumericUpDownDataLineForDataMatrixEncoding.TabIndex = 2
+        Me.NumericUpDownDataLineForDataMatrixEncoding.Value = New Decimal(New Integer() {10, 0, 0, 0})
         '
         'Form1
         '
-        Me.AutoScaleDimensions = New System.Drawing.SizeF(12.0!, 25.0!)
+        Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(2496, 1281)
+        Me.ClientSize = New System.Drawing.Size(1373, 697)
+        Me.Controls.Add(Me.GroupBox3)
         Me.Controls.Add(Me.GroupBox2)
         Me.Controls.Add(Me.GroupBox1)
         Me.Controls.Add(Me.TextBox4)
@@ -466,8 +491,7 @@ Partial Class Form1
         Me.Controls.Add(Me.LabelFileName)
         Me.Controls.Add(Me.TextBox1)
         Me.Controls.Add(Me.ButtonSelectFile)
-        Me.Margin = New System.Windows.Forms.Padding(6, 6, 6, 6)
-        Me.MinimumSize = New System.Drawing.Size(1428, 827)
+        Me.MinimumSize = New System.Drawing.Size(722, 449)
         Me.Name = "Form1"
         Me.Text = "LDFGraphicNumberUtility"
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).EndInit()
@@ -478,6 +502,9 @@ Partial Class Form1
         Me.GroupBox1.PerformLayout()
         Me.GroupBox2.ResumeLayout(False)
         Me.GroupBox2.PerformLayout()
+        Me.GroupBox3.ResumeLayout(False)
+        Me.GroupBox3.PerformLayout()
+        CType(Me.NumericUpDownDataLineForDataMatrixEncoding, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -520,4 +547,8 @@ Partial Class Form1
     Friend WithEvents GroupBox2 As GroupBox
     Friend WithEvents CheckBoxOutputMakeupMatching As CheckBox
     Friend WithEvents TextBoxOutputEveryMakeupMatching As TextBox
+    Friend WithEvents GroupBox3 As GroupBox
+    Friend WithEvents NumericUpDownDataLineForDataMatrixEncoding As NumericUpDown
+    Friend WithEvents Label2 As Label
+    Friend WithEvents CheckBoxAppendDataMatrix As CheckBox
 End Class

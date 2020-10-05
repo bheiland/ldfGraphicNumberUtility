@@ -397,10 +397,18 @@ Public Class Form1
                                         mostFilledLinesOfDataIndex += 1
                                         ReDim Preserve mostFilledLinesOfData(mostFilledLinesOfDataIndex)
                                     End If
+                                    OutputRecordLabel = OutputRecordLabel & LineData(LineData.Length - 1) '+ Chr(GROUPSEP)
+                                    If CheckBoxAppendDataMatrix.Checked Then
+                                        Dim rawConvertedText() As String = RawEncoderToCharacterString(LineData(NumericUpDownDataLineForDataMatrixEncoding.Value).ToString)
+                                        'OutputRecordLabel = OutputRecordLabel + Chr(GROUPSEP)
+                                        For Each arrayLine As String In rawConvertedText
+                                            'Console.WriteLine(arrayLine)
 
-                                    OutputRecordLabel = OutputRecordLabel & LineData(LineData.Length - 1) '+ Chr(10)
-
-                                        LDFWriter.Write(OutputRecordLabel)
+                                            OutputRecordLabel = OutputRecordLabel + Chr(GROUPSEP) & arrayLine
+                                        Next
+                                        'OutputRecordLabel = OutputRecordLabel & LineData(LineData.Length - 1) '+ Chr(10)
+                                    End If
+                                    LDFWriter.Write(OutputRecordLabel)
                                         'If FirstOccurance = True Then
                                         '    OutputRecordLabel = ""
                                         '    LineData(0) = LineData(0).Replace("Q", " ")
@@ -423,20 +431,20 @@ Public Class Form1
                                             TextBox1.Text = TextBoxLabel
                                             UpdateListviewItems()
                                         End If
-                                    If ((FirstOccurance = True) Or (firstVersionOccurance = True) Or (outputEveryOccuranceOfMakeup = True)) Then
-                                        OutputRecordLabel = ""
-                                        LineData(0) = LineData(0).Replace("Q", " ")
-                                        If (CheckBoxPalletIdTo1.Checked = vbTrue) Then
-                                            LineData(0) = LineData(0).Remove(28, 6).Insert(28, "1     ")
-                                        End If
+                                        If ((FirstOccurance = True) Or (firstVersionOccurance = True) Or (outputEveryOccuranceOfMakeup = True)) Then
+                                            OutputRecordLabel = ""
+                                            LineData(0) = LineData(0).Replace("Q", " ")
+                                            If (CheckBoxPalletIdTo1.Checked = vbTrue) Then
+                                                LineData(0) = LineData(0).Remove(28, 6).Insert(28, "1     ")
+                                            End If
 
-                                        For index = 0 To LineData.Length - 2
-                                            OutputRecordLabel = OutputRecordLabel & LineData(index) + Chr(GROUPSEP)
-                                        Next
-                                        OutputRecordLabel = OutputRecordLabel & LineData(LineData.Length - 1) '+ Chr(10)
-                                        firstoccuranceLDFstring = firstoccuranceLDFstring + OutputRecordLabel
+                                            For index = 0 To LineData.Length - 2
+                                                OutputRecordLabel = OutputRecordLabel & LineData(index) + Chr(GROUPSEP)
+                                            Next
+                                            OutputRecordLabel = OutputRecordLabel & LineData(LineData.Length - 1) '+ Chr(10)
+                                            firstoccuranceLDFstring = firstoccuranceLDFstring + OutputRecordLabel
+                                        End If
                                     End If
-                                End If
                                 Else
                                 PartialBuffer = Mid$(BufferString, FoundRecordStart, Len(BufferString) - FoundRecordStart)
                                 FoundRecordStart = 1
@@ -568,6 +576,17 @@ Public Class Form1
                             End If
                             labelLength = labelLength + LineData(LineData.Length - 1).Length
                             OutputRecordLabel = OutputRecordLabel.Replace(vbNullChar, "")
+
+                            If CheckBoxAppendDataMatrix.Checked Then
+                                Dim rawConvertedText() As String = RawEncoderToCharacterString(LineData(NumericUpDownDataLineForDataMatrixEncoding.Value).ToString)
+                                'OutputRecordLabel = OutputRecordLabel + Chr(GROUPSEP)
+                                For Each arrayLine As String In rawConvertedText
+                                    'Console.WriteLine(arrayLine)
+
+                                    OutputRecordLabel = OutputRecordLabel + Chr(GROUPSEP) & arrayLine
+                                Next
+                                'OutputRecordLabel = OutputRecordLabel & LineData(LineData.Length - 1) '+ Chr(10)
+                            End If
                             'LDFWriter.Write(OutputRecordLabel, 0, OutputRecordLabel.Length)
                             'LDFWriter.Write(
                             'LDFWriter.Write(OutputRecordLabel, OutputRecordLabel, labelLength)
@@ -702,6 +721,61 @@ Public Class Form1
         ButtonScan.Enabled = True
         NumericUpDownLineToReplace.Enabled = True
     End Sub
+    Function RawEncoderToCharacterString(ByVal Text As String) As String()
+        Dim DMIE = New DataMatrix.net.DmtxImageEncoder
+        Dim rawData(,) As Boolean = DMIE.EncodeRawData(Text)
+        Dim r0 As Int16
+        Dim r1 As Int16
+        Dim r2 As Int16
+        Dim r3 As Int16
+        Dim rowCounter As Integer = 0
+        Dim letter As Char
+        Dim line As String = ""
+        If rawData IsNot Nothing Then
+            Dim DataMatrixAsText((rawData.GetLength(1) - 1) / 4) As String
+            For rowIdx = 0 To rawData.GetLength(1) - 1 Step 4
+                For colIdx = 0 To rawData.GetLength(0) - 1
+                    r0 = 0
+                    r1 = 0
+                    r2 = 0
+                    r3 = 0
+                    If rawData(colIdx, rowIdx) = True Then
+                        r0 = 8
+                    End If
+                    If (rowIdx < rawData.GetLength(1)) Then
+                        If rawData(colIdx, rowIdx + 1) = True Then
+                            r1 = 4
+                        End If
+                        If (rowIdx + 2 < rawData.GetLength(1)) Then
+                            If rawData(colIdx, rowIdx + 2) = True Then
+                                r2 = 2
+                            End If
+                            If (rowIdx + 3 < rawData.GetLength(1)) Then
+                                If rawData(colIdx, rowIdx + 3) = True Then
+                                    r3 = 1
+                                End If
+                            End If
+                        End If
+                    End If
+                    letter = Chr(80 - r0 - r1 - r2 - r3)
+                    line = line & letter
+                Next
+                DataMatrixAsText(rowCounter) = line
+                line = ""
+                rowCounter = rowCounter + 1
+            Next
+            Return DataMatrixAsText
+        Else
+            Dim DataMatrixAsText(4) As String
+            For rowCounter = 0 To 3
+                DataMatrixAsText(rowCounter) = (" ")
+            Next
+            Return DataMatrixAsText
+        End If
+
+    End Function
+
+
     Private Function CountCharacters(ByVal RecordLine As String) As Long()
         Dim Characters(255) As Long
         Dim Length As Integer = Len(RecordLine)
@@ -1634,6 +1708,10 @@ Public Class Form1
     End Sub
 
     Private Sub CheckBox1_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBoxOutputMakeupMatching.CheckedChanged
+
+    End Sub
+
+    Private Sub Label4_Click(sender As Object, e As EventArgs) Handles Label4.Click
 
     End Sub
 End Class
