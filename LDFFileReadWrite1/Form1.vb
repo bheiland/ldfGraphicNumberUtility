@@ -757,7 +757,8 @@ Public Class Form1
                             End If
                         End If
                     End If
-                    letter = Chr(80 - r0 - r1 - r2 - r3)
+                    'letter = Chr(80 - r0 - r1 - r2 - r3)
+                    letter = Chr(65 + r0 + r1 + r2 + r3)
                     line = line & letter
                 Next
                 DataMatrixAsText(rowCounter) = line
@@ -1712,6 +1713,10 @@ Public Class Form1
     End Sub
 
     Private Sub Label4_Click(sender As Object, e As EventArgs) Handles Label4.Click
+
+    End Sub
+
+    Private Sub CheckBoxAppendDataMatrix_CheckedChanged(sender As Object, e As EventArgs) Handles CheckBoxAppendDataMatrix.CheckedChanged
 
     End Sub
 End Class

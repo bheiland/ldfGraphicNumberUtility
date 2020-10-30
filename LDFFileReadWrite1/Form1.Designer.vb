@@ -61,9 +61,9 @@ Partial Class Form1
         Me.TextBoxOutputEveryMakeupMatching = New System.Windows.Forms.TextBox()
         Me.CheckBoxOutputMakeupMatching = New System.Windows.Forms.CheckBox()
         Me.GroupBox3 = New System.Windows.Forms.GroupBox()
-        Me.CheckBoxAppendDataMatrix = New System.Windows.Forms.CheckBox()
-        Me.Label2 = New System.Windows.Forms.Label()
         Me.NumericUpDownDataLineForDataMatrixEncoding = New System.Windows.Forms.NumericUpDown()
+        Me.Label2 = New System.Windows.Forms.Label()
+        Me.CheckBoxAppendDataMatrix = New System.Windows.Forms.CheckBox()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NumericUpDownLineToReplace, System.ComponentModel.ISupportInitialize).BeginInit()
         CType(Me.NumericUpDownGraphicLineToScan, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -305,7 +305,7 @@ Partial Class Form1
         'TextBox2
         '
         Me.TextBox2.Location = New System.Drawing.Point(679, 69)
-        Me.TextBox2.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.TextBox2.Margin = New System.Windows.Forms.Padding(2)
         Me.TextBox2.MaxLength = 3
         Me.TextBox2.Name = "TextBox2"
         Me.TextBox2.Size = New System.Drawing.Size(52, 20)
@@ -388,9 +388,9 @@ Partial Class Form1
         Me.GroupBox2.Controls.Add(Me.TextBoxOutputEveryMakeupMatching)
         Me.GroupBox2.Controls.Add(Me.CheckBoxOutputMakeupMatching)
         Me.GroupBox2.Location = New System.Drawing.Point(1058, 441)
-        Me.GroupBox2.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.GroupBox2.Margin = New System.Windows.Forms.Padding(2)
         Me.GroupBox2.Name = "GroupBox2"
-        Me.GroupBox2.Padding = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.GroupBox2.Padding = New System.Windows.Forms.Padding(2)
         Me.GroupBox2.Size = New System.Drawing.Size(178, 70)
         Me.GroupBox2.TabIndex = 54
         Me.GroupBox2.TabStop = False
@@ -399,7 +399,7 @@ Partial Class Form1
         'TextBoxOutputEveryMakeupMatching
         '
         Me.TextBoxOutputEveryMakeupMatching.Location = New System.Drawing.Point(10, 47)
-        Me.TextBoxOutputEveryMakeupMatching.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.TextBoxOutputEveryMakeupMatching.Margin = New System.Windows.Forms.Padding(2)
         Me.TextBoxOutputEveryMakeupMatching.Name = "TextBoxOutputEveryMakeupMatching"
         Me.TextBoxOutputEveryMakeupMatching.Size = New System.Drawing.Size(143, 20)
         Me.TextBoxOutputEveryMakeupMatching.TabIndex = 1
@@ -408,7 +408,7 @@ Partial Class Form1
         '
         Me.CheckBoxOutputMakeupMatching.AutoSize = True
         Me.CheckBoxOutputMakeupMatching.Location = New System.Drawing.Point(9, 21)
-        Me.CheckBoxOutputMakeupMatching.Margin = New System.Windows.Forms.Padding(2, 2, 2, 2)
+        Me.CheckBoxOutputMakeupMatching.Margin = New System.Windows.Forms.Padding(2)
         Me.CheckBoxOutputMakeupMatching.Name = "CheckBoxOutputMakeupMatching"
         Me.CheckBoxOutputMakeupMatching.Size = New System.Drawing.Size(147, 17)
         Me.CheckBoxOutputMakeupMatching.TabIndex = 0
@@ -427,15 +427,14 @@ Partial Class Form1
         Me.GroupBox3.TabStop = False
         Me.GroupBox3.Text = "DataMatrix Encoding"
         '
-        'CheckBoxAppendDataMatrix
+        'NumericUpDownDataLineForDataMatrixEncoding
         '
-        Me.CheckBoxAppendDataMatrix.AutoSize = True
-        Me.CheckBoxAppendDataMatrix.Location = New System.Drawing.Point(10, 18)
-        Me.CheckBoxAppendDataMatrix.Name = "CheckBoxAppendDataMatrix"
-        Me.CheckBoxAppendDataMatrix.Size = New System.Drawing.Size(165, 17)
-        Me.CheckBoxAppendDataMatrix.TabIndex = 0
-        Me.CheckBoxAppendDataMatrix.Text = "Append DataMatrix Encoding"
-        Me.CheckBoxAppendDataMatrix.UseVisualStyleBackColor = True
+        Me.NumericUpDownDataLineForDataMatrixEncoding.Location = New System.Drawing.Point(123, 47)
+        Me.NumericUpDownDataLineForDataMatrixEncoding.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
+        Me.NumericUpDownDataLineForDataMatrixEncoding.Name = "NumericUpDownDataLineForDataMatrixEncoding"
+        Me.NumericUpDownDataLineForDataMatrixEncoding.Size = New System.Drawing.Size(40, 20)
+        Me.NumericUpDownDataLineForDataMatrixEncoding.TabIndex = 2
+        Me.NumericUpDownDataLineForDataMatrixEncoding.Value = New Decimal(New Integer() {10, 0, 0, 0})
         '
         'Label2
         '
@@ -446,14 +445,15 @@ Partial Class Form1
         Me.Label2.TabIndex = 1
         Me.Label2.Text = "Data Line To Encode"
         '
-        'NumericUpDownDataLineForDataMatrixEncoding
+        'CheckBoxAppendDataMatrix
         '
-        Me.NumericUpDownDataLineForDataMatrixEncoding.Location = New System.Drawing.Point(123, 47)
-        Me.NumericUpDownDataLineForDataMatrixEncoding.Minimum = New Decimal(New Integer() {1, 0, 0, 0})
-        Me.NumericUpDownDataLineForDataMatrixEncoding.Name = "NumericUpDownDataLineForDataMatrixEncoding"
-        Me.NumericUpDownDataLineForDataMatrixEncoding.Size = New System.Drawing.Size(40, 20)
-        Me.NumericUpDownDataLineForDataMatrixEncoding.TabIndex = 2
-        Me.NumericUpDownDataLineForDataMatrixEncoding.Value = New Decimal(New Integer() {10, 0, 0, 0})
+        Me.CheckBoxAppendDataMatrix.AutoSize = True
+        Me.CheckBoxAppendDataMatrix.Location = New System.Drawing.Point(10, 18)
+        Me.CheckBoxAppendDataMatrix.Name = "CheckBoxAppendDataMatrix"
+        Me.CheckBoxAppendDataMatrix.Size = New System.Drawing.Size(165, 17)
+        Me.CheckBoxAppendDataMatrix.TabIndex = 0
+        Me.CheckBoxAppendDataMatrix.Text = "Append DataMatrix Encoding"
+        Me.CheckBoxAppendDataMatrix.UseVisualStyleBackColor = True
         '
         'Form1
         '
